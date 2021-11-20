@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -25,7 +24,7 @@ public class SwaggerConfig {
     return new Docket(DocumentationType.SWAGGER_2)
       .useDefaultResponseMessages(false)
       .select()
-      .apis(RequestHandlerSelectors.basePackage("mandatory.cinemama"))
+      .apis(RequestHandlerSelectors.basePackage("vote.backend"))
       .paths(PathSelectors.any())
       .build()
       .apiInfo(apiInfo())
@@ -34,9 +33,9 @@ public class SwaggerConfig {
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
-      .title("Movie Theater REST Api")
+      .title("Easy Vote API")
       .description(
-        "- This is a Mandatory School project, designed by the team <b>PIE</b>.<br><br><em>Contributed by:</em><br><br><b>Artiom Tofan<br>Nikolai Lenander<br>Paweł Stępień<br>Tom Billington</b><br><br><em>All rights reserved.</em>"
+        "- This is a Mandatory School project, designed by the team <b>VIP</b>.<br><br><em>Contributed by:</em><br><br><b>Artiom Tofan<br>Nikolai Lenander<br>Paweł Stępień<br></b><br><br><em>All rights reserved.</em>"
       )
       .version("1.0")
       .build();
