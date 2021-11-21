@@ -29,7 +29,7 @@ public class Nem {
   private String password;
 
   @Column(nullable = false, unique = true)
-  private String cpr;
+  private String username;
 
   @ManyToOne
   @JsonIgnoreProperties("id")

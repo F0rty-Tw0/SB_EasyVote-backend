@@ -7,7 +7,7 @@ import vote.backend.entities.User.Nem.Nem;
 
 @Repository
 public interface NemRepository extends JpaRepository<Nem, Long> {
-  public Optional<Nem> findByCpr(String cpr);
+  public Optional<Nem> findByUsername(String username);
 
-  public Boolean existsByCpr(String cpr);
+  public Boolean existsByUsername(String username);
 }

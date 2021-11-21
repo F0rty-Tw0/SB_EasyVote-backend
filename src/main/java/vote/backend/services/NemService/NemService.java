@@ -5,7 +5,7 @@ import vote.backend.entities.User.Nem.Nem;
 public interface NemService {
   public void addNem(Nem user);
 
-  public Nem findNemByCpr(String cpr);
+  public Nem findNemByUsername(String username);
 
-  public Boolean nemExistsByCpr(String cpr);
+  public Boolean nemExistsByUsername(String username);
 }

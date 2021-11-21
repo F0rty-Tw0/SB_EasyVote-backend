@@ -17,13 +17,13 @@ public class NemDetailsServiceImpl implements UserDetailsService {
 
   @Override
   @Transactional
-  public UserDetails loadUserByUsername(String cpr)
+  public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
     Nem nem = userRepository
-      .findByCpr(cpr)
+      .findByUsername(username)
       .orElseThrow(
         () ->
-          new UsernameNotFoundException("User not found with the cpr: " + cpr)
+          new UsernameNotFoundException("User not found with the username: " + username)
       );
     return NemDetailsImpl.build(nem);
   }

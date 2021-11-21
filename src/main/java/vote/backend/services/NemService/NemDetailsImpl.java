@@ -14,7 +14,7 @@ import vote.backend.entities.User.Nem.Nem;
 public class NemDetailsImpl implements UserDetails {
 
   private final Long id;
-  private String cpr;
+  private String username;
 
   @JsonIgnore
   private String password;
@@ -23,12 +23,12 @@ public class NemDetailsImpl implements UserDetails {
 
   public NemDetailsImpl(
     Long id,
-    String cpr,
+    String username,
     String password,
     Collection<? extends GrantedAuthority> grantedAuthorities
   ) {
     this.id = id;
-    this.cpr = cpr;
+    this.username = username;
     this.password = password;
     this.grantedAuthorities = grantedAuthorities;
   }
@@ -40,7 +40,7 @@ public class NemDetailsImpl implements UserDetails {
     );
     return new NemDetailsImpl(
       nem.getId(),
-      nem.getCpr(),
+      nem.getUsername(),
       nem.getPassword(),
       grantedAuthorities
     );
@@ -62,7 +62,7 @@ public class NemDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    return cpr;
+    return username;
   }
 
   @Override

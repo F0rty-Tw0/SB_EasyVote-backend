@@ -21,7 +21,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   private JwtUtils jwtUtils;
 
   @Autowired
-  private NemDetailsServiceImpl userDetailsService;
+  private NemDetailsServiceImpl nemDetailsService;
 
   @Override
   protected void doFilterInternal(
@@ -35,13 +35,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(
+        UserDetails nemDetails = nemDetailsService.loadUserByUsername(
           username
         );
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-          userDetails,
+          nemDetails,
           null,
-          userDetails.getAuthorities()
+          nemDetails.getAuthorities()
         );
         authentication.setDetails(
           new WebAuthenticationDetailsSource().buildDetails(request)

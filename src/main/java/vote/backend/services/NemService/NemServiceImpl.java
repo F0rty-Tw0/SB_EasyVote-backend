@@ -1,6 +1,7 @@
 package vote.backend.services.NemService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.User.Nem.Nem;
 import vote.backend.repositories.NemRepository;
@@ -14,13 +15,20 @@ public class NemServiceImpl implements NemService {
   private String type = "User";
 
   @Override
-  public Nem findNemByCpr(String cpr) {
-    return nemRepository.findByCpr(cpr).orElseThrow();
+  public Nem findNemByUsername(String username) {
+    return nemRepository
+      .findByUsername(username)
+      .orElseThrow(
+        () ->
+          new UsernameNotFoundException(
+            type + " not found with the username: " + username
+          )
+      );
   }
 
   @Override
-  public Boolean nemExistsByCpr(String cpr) {
-    return nemRepository.existsByCpr(cpr);
+  public Boolean nemExistsByUsername(String username) {
+    return nemRepository.existsByUsername(username);
   }
 
   @Override
