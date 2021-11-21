@@ -13,17 +13,19 @@ import vote.backend.repositories.NemRepository;
 public class NemDetailsServiceImpl implements UserDetailsService {
 
   @Autowired
-  private NemRepository userRepository;
+  private NemRepository nemRepository;
 
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
-    Nem nem = userRepository
+    Nem nem = nemRepository
       .findByUsername(username)
       .orElseThrow(
         () ->
-          new UsernameNotFoundException("User not found with the username: " + username)
+          new UsernameNotFoundException(
+            "User not found with the username: " + username
+          )
       );
     return NemDetailsImpl.build(nem);
   }

@@ -33,6 +33,10 @@ public class NemServiceImpl implements NemService {
 
   @Override
   public void addNem(Nem nem) {
-    nemRepository.save(nem);
+    try {
+      nemRepository.save(nem);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

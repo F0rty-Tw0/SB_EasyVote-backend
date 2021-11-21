@@ -1,6 +1,7 @@
 package vote.backend.security;
 
 import java.io.IOException;
+import java.util.Collections;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,16 +33,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     throws ServletException, IOException {
     try {
       String jwt = parseJwt(request);
-      if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+      if (jwtUtils.validateJwtToken(jwt)) {
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-        UserDetails nemDetails = nemDetailsService.loadUserByUsername(
-          username
-        );
+        UserDetails nemDetails = nemDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
           nemDetails,
           null,
-          nemDetails.getAuthorities()
+          Collections.emptyList()
         );
         authentication.setDetails(
           new WebAuthenticationDetailsSource().buildDetails(request)
@@ -61,8 +60,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
       return headerAuth.substring(7);
-    }
-
-    return null;
+    } else throw new RuntimeException("JWT is missing");
   }
 }
