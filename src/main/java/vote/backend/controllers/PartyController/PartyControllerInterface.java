@@ -20,7 +20,7 @@ public interface PartyControllerInterface {
   @ApiOperation(
           value = " - Returns all of the Parties",
           authorizations = { @Authorization(value = "jwtToken") },
-          notes = "Execute to retrieve all <b>Actors</b>."
+          notes = "Execute to retrieve all <b>Parties</b>."
   )
   @GetMapping
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")

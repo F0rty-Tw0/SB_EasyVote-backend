@@ -22,14 +22,14 @@ public interface CandidateControllerInterface {
   @ApiOperation(
           value = " - Returns all of the Candidates",
           authorizations = { @Authorization(value = "jwtToken") },
-          notes = "Execute to retrieve all <b>Actors</b>."
+          notes = "Execute to retrieve all <b>Candidates</b>."
   )
   @GetMapping
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Candidate> findAllCandidates();
 
   @ApiOperation(
-          value = " - Returns the Candidateby the Id",
+          value = " - Returns the Candidate by the Id",
           authorizations = { @Authorization(value = "jwtToken") },
           notes = "Enter the <b>id</b> of a Party to retrieve a <b>Party</b> Object."
   )
