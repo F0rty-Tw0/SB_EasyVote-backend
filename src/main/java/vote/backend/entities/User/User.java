@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vote.backend.entities.Group.Kommune;
 import vote.backend.entities.User.Nem.Nem;
 import vote.backend.entities.User.Roles.Role;
 
@@ -49,4 +50,8 @@ public class User {
   @ManyToOne
   @JsonIgnoreProperties("id")
   private Role role;
+
+ @ManyToOne
+  @JsonIgnoreProperties("id")
+  private Kommune kommune;
 }
