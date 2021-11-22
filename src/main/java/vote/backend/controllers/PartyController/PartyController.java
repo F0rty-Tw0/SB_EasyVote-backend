@@ -13,14 +13,9 @@ public class PartyController implements PartyControllerInterface {
 
 
   @Override
-  public List<Party> findAllParties() {
-    return partyService.findAllParties();
-  }
+  public List<Party> findAllParties() { return partyService.findAllParties();}
 
   @Override
-  public Party findPartyById(Long id) {
-    // I'm getting an error with the Optional here, need to fix for later
-    //    return partyService.findPartyById(id);
-    return null;
-  }
+  public Party findPartyById(Long id) { return partyService.findPartyById(id); }
+
 }

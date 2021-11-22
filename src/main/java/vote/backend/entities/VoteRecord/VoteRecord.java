@@ -1,0 +1,32 @@
+package vote.backend.entities.VoteRecord;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import vote.backend.entities.User.Candidate.Candidate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+public class VoteRecord implements Serializable {
+
+  @Id
+  @OneToOne
+  private Candidate candidate;
+
+  @Column
+  private Long voteCount;
+
+  @Column
+  private LocalDateTime datePeriod;
+
+}

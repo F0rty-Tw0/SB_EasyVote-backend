@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
 
 @Api(
@@ -29,9 +28,9 @@ public interface CandidateControllerInterface {
   @ApiOperation(
     value = " - Returns the Candidate by the Id",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>id</b> of a Party to retrieve a <b>Party</b> Object."
+    notes = "Enter the <b>id</b> of a Candidate to retrieve a <b>Candidate</b> Object."
   )
   @GetMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public Party findCandidateById(@PathVariable Long id);
+  public Object findCandidateById(@PathVariable Long id);
 }

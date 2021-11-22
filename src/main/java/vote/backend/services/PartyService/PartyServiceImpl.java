@@ -5,7 +5,6 @@ import vote.backend.entities.Party.Party;
 import vote.backend.repositories.PartyRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PartyServiceImpl implements PartyService {
 
@@ -14,15 +13,13 @@ public class PartyServiceImpl implements PartyService {
 
 
   @Override
-  public List<Party> findAllParties() {
-    List<Party> parties = partyRepository.findAll();
-    return parties;
-  }
+  public List<Party> findAllParties() { return partyRepository.findAll(); }
 
   @Override
-  public Optional<Party> findPartyById(Long id) {
-    Optional<Party> party = partyRepository.findById(id);
-    return party;
+  public Party findPartyById(Long id) {
+    return partyRepository
+            .findById(id)
+            .orElseThrow(() -> new RuntimeException("Party not found"));
   }
 
   @Override
