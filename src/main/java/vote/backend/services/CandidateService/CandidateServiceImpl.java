@@ -1,37 +1,30 @@
 package vote.backend.services.CandidateService;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.repositories.CandidateRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 public class CandidateServiceImpl implements CandidateService {
 
   @Autowired
   private CandidateRepository candidateRepository;
 
-
   @Override
   public List<Candidate> findAllCandidates() {
-    List<Candidate> candidates= candidateRepository.findAll();
-    return candidates;
+    return candidateRepository.findAll();
   }
 
   @Override
-  public Optional<Candidate> findCandidateById(Long id) {
-    Optional<Candidate> candidate = candidateRepository.findById(id);
-    return candidate;
+  public Candidate findCandidateById(Long id) {
+    return candidateRepository
+      .findById(id)
+      .orElseThrow(() -> new RuntimeException("Candidate not found"));
   }
 
   @Override
-  public void updateCandidateById(Long id) {
-
-  }
+  public void updateCandidateById(Long id) {}
 
   @Override
-  public void deleteCandidateById(Long id) {
-
-  }
+  public void deleteCandidateById(Long id) {}
 }

@@ -79,16 +79,17 @@ public class AuthServiceImpl implements AuthService {
       )
     );
     User user = new User();
-    Role customerRole = roleRepository
+    Role voterRole = roleRepository
       .findByName(ERoles.ROLE_VOTER)
       .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
 
+    System.out.println(voterRole);
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
 
     NemDetailsImpl nemDetails = (NemDetailsImpl) authentication.getPrincipal();
 
-    user.setRole(customerRole);
+    user.setRole(voterRole);
 
     Nem nem = nemRepository.findById(nemDetails.getId()).get();
     user.setNem(nem);
