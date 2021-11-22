@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
   private String ROLE_NOT_FOUND_MESSAGE = "Error: Role is not found.";
 
   @Override
-  public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
+  public ResponseEntity<?> registerNem(SignupRequest signUpRequest) {
     boolean nemExists = nemRepository.existsByUsername(
       signUpRequest.getUsername()
     );
@@ -83,7 +85,6 @@ public class AuthServiceImpl implements AuthService {
       .findByName(ERoles.ROLE_VOTER)
       .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
 
-    System.out.println(voterRole);
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -91,14 +92,24 @@ public class AuthServiceImpl implements AuthService {
 
     user.setRole(voterRole);
 
-    Nem nem = nemRepository.findById(nemDetails.getId()).get();
+    Nem nem = nemRepository
+      .findById(nemDetails.getId())
+      .orElseThrow(() -> new RuntimeException("Error: Nem is not found."));
+
     user.setNem(nem);
 
     if (Boolean.FALSE.equals(userRepository.existsByNemId(nem.getId()))) {
       userRepository.save(user);
     }
+
+    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
+      voterRole.getName().name()
+    );
+
+    String role = grantedAuthority.getAuthority();
+    
     return ResponseEntity.ok(
-      new JwtResponse(jwt, nemDetails.getId(), nemDetails.getUsername())
+      new JwtResponse(jwt, nemDetails.getId(), nemDetails.getUsername(), role)
     );
   }
 }

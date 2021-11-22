@@ -1,19 +1,17 @@
 package vote.backend.entities.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vote.backend.entities.Group.Kommune;
+import vote.backend.entities.Municipality.Municipality;
 import vote.backend.entities.User.Nem.Nem;
 import vote.backend.entities.User.Roles.Role;
 
@@ -44,14 +42,12 @@ public class User {
   @Column(unique = true)
   private Long cpr;
 
-  @OneToOne
+  @ManyToOne
   private Nem nem;
 
   @ManyToOne
-  @JsonIgnoreProperties("id")
   private Role role;
 
- @ManyToOne
-  @JsonIgnoreProperties("id")
-  private Kommune kommune;
+  @ManyToOne
+  private Municipality municipality;
 }
