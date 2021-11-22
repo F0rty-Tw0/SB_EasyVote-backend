@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @NoArgsConstructor
@@ -33,6 +33,6 @@ public class VoteRecord {
   private Long voteCount;
 
   @Column
-  private LocalDateTime datePeriod;
+  private LocalDate date;
 
 }

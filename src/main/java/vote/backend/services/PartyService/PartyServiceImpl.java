@@ -19,7 +19,7 @@ public class PartyServiceImpl implements PartyService {
   public Party findPartyById(Long id) {
     return partyRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Party not found"));
+            .orElseThrow(() -> new RuntimeException("Party with the id" + id + "not found"));
   }
 
   @Override
