@@ -6,7 +6,7 @@ import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
 import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 
 public interface AuthService {
-  public ResponseEntity<?> registerUser(SignupRequest signUpRequest);
+  public ResponseEntity<?> registerNem(SignupRequest signUpRequest);
 
   public ResponseEntity<JwtResponse> authenticateUser(
     LoginRequest loginRequest

@@ -1,23 +1,33 @@
 package vote.backend.entities.VoteRecord;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import vote.backend.entities.User.Candidate.Candidate;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import java.time.LocalDate;
-
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import vote.backend.entities.User.Candidate.Candidate;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@Table(
+  uniqueConstraints = {
+    @UniqueConstraint(
+      name = "UniqueCandidateIdAndDate",
+      columnNames = { "candidate_id", "debate_date" }
+    ),
+  },
+  name = "vote_records",
+  schema = "easyvote"
+)
 public class VoteRecord {
 
   @Id
@@ -25,14 +35,11 @@ public class VoteRecord {
   @Column(nullable = false)
   private Long id;
 
-//  @Id
   @OneToOne
   private Candidate candidate;
 
-  @Column
   private Long voteCount;
 
-  @Column
-  private LocalDate date;
-
+  @Column(unique = true)
+  private LocalDate debateDate;
 }

@@ -34,13 +34,22 @@ public class JwtUtils {
       .compact();
   }
 
-  public String getUserNameFromJwtToken(String token) {
+  public String getNemUserNameFromJwtToken(String token) {
     return Jwts
       .parser()
       .setSigningKey(jwtSecret)
       .parseClaimsJws(token)
       .getBody()
       .getSubject();
+  }
+
+  public String getNemIdFromJwtToken(String token) {
+    return Jwts
+      .parser()
+      .setSigningKey(jwtSecret)
+      .parseClaimsJws(token)
+      .getBody()
+      .getId();
   }
 
   public boolean validateJwtToken(String authToken) {
