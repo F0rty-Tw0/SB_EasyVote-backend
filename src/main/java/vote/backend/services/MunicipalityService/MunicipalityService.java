@@ -12,5 +12,5 @@ public interface MunicipalityService {
 
   public List<Municipality> findAll();
 
-  public String findMunicipalityByZipCode(Long zipCode);
+  public Municipality findMunicipalityByZipCode(Long zipCode);
 }
