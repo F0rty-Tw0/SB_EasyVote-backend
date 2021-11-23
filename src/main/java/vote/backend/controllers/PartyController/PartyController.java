@@ -1,15 +1,17 @@
 package vote.backend.controllers.PartyController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 import vote.backend.entities.Party.Party;
-import vote.backend.services.PartyService.PartyServiceImpl;
+import vote.backend.services.PartyService.PartyService;
 
 import java.util.List;
 
+@RestController
 public class PartyController implements PartyControllerInterface {
 
   @Autowired
-  PartyServiceImpl partyService;
+  PartyService partyService;
 
 
   @Override
