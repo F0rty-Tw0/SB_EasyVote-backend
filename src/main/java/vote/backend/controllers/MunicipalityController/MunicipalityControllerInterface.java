@@ -60,7 +60,7 @@ public interface MunicipalityControllerInterface {
   @PreAuthorize(
     "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
   )
-  public String findMunicipalityByMunicipalityZipCode(
+  public Municipality findMunicipalityByMunicipalityZipCode(
     @PathVariable Long zipcode
   );
 }
