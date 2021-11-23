@@ -1,6 +1,8 @@
 package vote.backend.services.UserService;
 
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import vote.backend.entities.User.User;
 
 public interface UserService {
@@ -11,4 +13,6 @@ public interface UserService {
   public User findUserByNemId(Long id);
 
   public void addUser(User user);
+
+  public void convertUserToCandidate(Long id);
 }

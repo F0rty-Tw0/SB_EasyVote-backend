@@ -51,6 +51,11 @@ public class User {
   @ManyToOne
   private Municipality municipality;
 
+  public User(Nem nem, Role role) {
+    this.nem = nem;
+    this.role = role;
+  }
+
   public User(String name, Long phoneNumber, String address, String zip, String email, Long cpr) {
     this.name = name;
     this.phoneNumber = phoneNumber;

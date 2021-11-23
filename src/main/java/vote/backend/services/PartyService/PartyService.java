@@ -13,4 +13,6 @@ public interface PartyService {
   public void addParty(Party party);
 
   public void deletePartyById(Long id);
+
+  public Party findPartyByName(String name);
 }

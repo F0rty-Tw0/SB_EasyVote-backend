@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
@@ -12,12 +13,15 @@ import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Roles.ERoles;
 import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.User.User;
 import vote.backend.entities.VoteRecord.VoteRecord;
 import vote.backend.repositories.MunicipalityRepository;
 import vote.backend.repositories.NemRepository;
 import vote.backend.repositories.RoleRepository;
 import vote.backend.repositories.UserRepository;
+import vote.backend.security.AuthenticationPayload.Request.LoginRequest;
 import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
+import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 import vote.backend.services.AuthService.AuthService;
 import vote.backend.services.CandidateService.CandidateService;
 import vote.backend.services.PartyService.PartyService;
@@ -102,7 +106,16 @@ public class DatabaseConfig implements CommandLineRunner {
     }
 
     if (candidateService.findAllCandidates().isEmpty()) {
-        candidateService.addCandidate(new Candidate("Alex Vanopslagh", null, "Guldbergsgade 44", null, "alex.vanopslagh@ft.dk", null));
+      LoginRequest loginRequest = new LoginRequest("admin", "test");
+      ResponseEntity<JwtResponse> authentication = authService.authenticateUser(loginRequest);
+      Long nemId = authentication.getBody().getId();
+
+      User user = userRepository.findByNemId(nemId).get();
+      userRepository.convertUserToCandidate(user.getId());
+      Role role = roleRepository.getById(3L);
+      Party party = partyService.findPartyByName("Veganerpartiet");
+        candidateService.updateCandidatePartyById(user.getId(),party);
+      candidateService.updateCandidateRoleById(user.getId(), role);
     }
 
 //    if (voteRecordService.findAllVoteRecords().isEmpty()) {

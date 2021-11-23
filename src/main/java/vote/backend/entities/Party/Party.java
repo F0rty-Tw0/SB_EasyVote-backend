@@ -30,15 +30,15 @@ public class Party {
   private Long id;
 
   @Column(nullable = false)
-  private String partyName;
+  private String name;
 
   // Letter of the party, like "SF" "A" "V"
   @Column(nullable = false)
-  private String partyLetter;
+  private String abbreviaton;
 
-  public Party (String partyName, String partyLetter){
-    this.partyName = partyName;
-    this.partyLetter = partyLetter;
+  public Party (String name, String abbreviaton){
+    this.name = name;
+    this.abbreviaton = abbreviaton;
  }
   @ManyToMany
   private List<Candidate> candidates = new ArrayList<>();

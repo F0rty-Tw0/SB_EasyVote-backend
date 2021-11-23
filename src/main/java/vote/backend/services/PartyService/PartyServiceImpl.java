@@ -21,7 +21,7 @@ public class PartyServiceImpl implements PartyService {
   public Party findPartyById(Long id) {
     return partyRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Party with the id" + id + "not found"));
+            .orElseThrow(() -> new RuntimeException("Party with the id " + id + "not found"));
   }
 
   @Override
@@ -30,5 +30,12 @@ public class PartyServiceImpl implements PartyService {
   @Override
   public void deletePartyById(Long id) {
 
+  }
+
+  @Override
+  public Party findPartyByName(String name) {
+    return partyRepository
+            .findByName(name)
+            .orElseThrow(() -> new RuntimeException("Party with the name " + name + "not found"));
   }
 }
