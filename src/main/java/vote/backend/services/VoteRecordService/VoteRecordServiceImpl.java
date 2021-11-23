@@ -37,11 +37,11 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   return voteRecordRepository.findByDate(date);
   }
 
-//  @Override
-//  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id) {
-//      VoteRecord VTC = voteRecordRepository
-//              .findByCandidateId(id)
-//              .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
-//        VTC.setVoteCount(2L);
-//  }
+  @Override
+  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id) {
+      VoteRecord VTC = voteRecordRepository
+              .findByCandidateId(id)
+              .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
+        VTC.setVoteCount(VTC.getVoteCount()+1);
+  }
 }
