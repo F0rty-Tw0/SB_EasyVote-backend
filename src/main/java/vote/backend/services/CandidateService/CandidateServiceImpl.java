@@ -19,7 +19,7 @@ public class CandidateServiceImpl implements CandidateService {
   public Candidate findCandidateById(Long id) {
     return candidateRepository
       .findById(id)
-      .orElseThrow(() -> new RuntimeException("Candidate not found"));
+      .orElseThrow(() -> new RuntimeException("Candidate with id" + id + "not found"));
   }
 
   @Override

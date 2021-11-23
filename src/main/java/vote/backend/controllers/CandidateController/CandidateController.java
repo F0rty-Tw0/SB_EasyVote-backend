@@ -2,13 +2,13 @@ package vote.backend.controllers.CandidateController;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import vote.backend.entities.Party.Party;
+import org.springframework.web.bind.annotation.RestController;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.services.CandidateService.CandidateServiceImpl;
 
+@RestController
 public class CandidateController implements CandidateControllerInterface {
 
-  @Autowired
   CandidateServiceImpl candidateService;
 
   @Override
@@ -17,8 +17,7 @@ public class CandidateController implements CandidateControllerInterface {
   }
 
   @Override
-  public Party findCandidateById(Long id) {
-    // I'm getting an error with the Optional here, need to fix for later
-    return null;
+  public Candidate findCandidateById(Long id) {
+    return candidateService.findCandidateById(id);
   }
 }

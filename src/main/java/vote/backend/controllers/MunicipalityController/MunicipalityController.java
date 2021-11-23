@@ -29,7 +29,7 @@ public class MunicipalityController implements MunicipalityControllerInterface {
   }
 
   @Override
-  public String findMunicipalityByMunicipalityZipCode(Long zipcode) {
+  public Municipality findMunicipalityByMunicipalityZipCode(Long zipcode) {
     return municipalityService.findMunicipalityByZipCode(zipcode);
   }
 }

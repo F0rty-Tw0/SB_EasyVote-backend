@@ -1,16 +1,15 @@
 package vote.backend.controllers.AuthController;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
-import vote.backend.security.AuthenticationPayload.Request.LoginRequest;
-import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
-import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import vote.backend.security.AuthenticationPayload.Request.LoginRequest;
+import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
+import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 
 @Api(
   tags = "Authentication - (REQUIRED)",
