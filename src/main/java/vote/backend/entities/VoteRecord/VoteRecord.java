@@ -22,7 +22,7 @@ import vote.backend.entities.User.Candidate.Candidate;
   uniqueConstraints = {
     @UniqueConstraint(
       name = "UniqueCandidateIdAndDate",
-      columnNames = { "candidate_id", "debate_date" }
+      columnNames = { "candidate_id", "debatedate" }
     ),
   },
   name = "vote_records",

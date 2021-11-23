@@ -8,14 +8,20 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
+import vote.backend.entities.Party.Party;
+import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Roles.ERoles;
 import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.VoteRecord.VoteRecord;
 import vote.backend.repositories.MunicipalityRepository;
 import vote.backend.repositories.NemRepository;
 import vote.backend.repositories.RoleRepository;
 import vote.backend.repositories.UserRepository;
 import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
 import vote.backend.services.AuthService.AuthService;
+import vote.backend.services.CandidateService.CandidateService;
+import vote.backend.services.PartyService.PartyService;
+import vote.backend.services.VoteRecordService.VoteRecordService;
 
 @Component
 @Profile("!test")
@@ -35,6 +41,14 @@ public class DatabaseConfig implements CommandLineRunner {
 
   @Autowired
   private MunicipalityRepository municipalityRepository;
+
+  @Autowired
+  private PartyService partyService;
+
+  @Autowired
+  private CandidateService candidateService;
+
+  private VoteRecordService voteRecordService;
 
   @Override
   public void run(String... args) throws Exception {
@@ -69,5 +83,32 @@ public class DatabaseConfig implements CommandLineRunner {
     if (nemRepository.findAll().isEmpty()) {
       authService.registerNem(new SignupRequest("admin", "test"));
     }
+
+    if (partyService.findAll().isEmpty()) {
+      partyService.addParty(new Party("Liberal Alliance", "LA"));
+      partyService.addParty(new Party("Enhedslisten", "Ø"));
+      partyService.addParty(new Party("Radikale Venstre", "B"));
+      partyService.addParty(new Party("Det Konservative Folkeparti", "C"));
+      partyService.addParty(new Party("Nye Borgerlige", "D"));
+      partyService.addParty(new Party("Socialistisk Folkeparti", "SF"));
+      partyService.addParty(new Party("Veganerpartiet", "G"));
+      partyService.addParty(new Party("Frie Grønne, Danmarks Nye Venstrefløjsparti", "Q"));
+      partyService.addParty(new Party("Kristendemokraterne", "K"));
+      partyService.addParty(new Party("Dansk Folkeparti", "O"));
+      partyService.addParty(new Party("Venstre, Danmarks Liberale Parti", "V"));
+      partyService.addParty(new Party("Alternativet", "Å"));
+
+
+    }
+
+    if (candidateService.findAllCandidates().isEmpty()) {
+        candidateService.addCandidate(new Candidate("Alex Vanopslagh", null, "Guldbergsgade 44", null, "alex.vanopslagh@ft.dk", null));
+    }
+
+//    if (voteRecordService.findAllVoteRecords().isEmpty()) {
+//      voteRecordService.addVoteRecord(new VoteRecord(
+//        new Candidate(1)
+//      ));
+//    }
   }
 }

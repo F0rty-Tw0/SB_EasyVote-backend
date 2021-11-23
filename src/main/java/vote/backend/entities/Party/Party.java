@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import vote.backend.entities.User.Candidate.Candidate;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "parties", schema = "easyvote")
 public class Party {
 
@@ -27,12 +30,16 @@ public class Party {
   private Long id;
 
   @Column(nullable = false)
-  private Long partyName;
+  private String partyName;
 
   // Letter of the party, like "SF" "A" "V"
   @Column(nullable = false)
   private String partyLetter;
 
+  public Party (String partyName, String partyLetter){
+    this.partyName = partyName;
+    this.partyLetter = partyLetter;
+ }
   @ManyToMany
   private List<Candidate> candidates = new ArrayList<>();
 }

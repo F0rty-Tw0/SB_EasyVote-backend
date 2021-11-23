@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface VoteRecordRepository extends JpaRepository<VoteRecord, Long> {
   public Optional<VoteRecord> findById(Long id);
-  public List<VoteRecord> findByDate(LocalDate date);
+  public List<VoteRecord> findByDebateDate(LocalDate date);
   public Optional<VoteRecord> findByCandidateId(Long id);
 //  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id);
 }

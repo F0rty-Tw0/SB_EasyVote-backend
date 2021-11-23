@@ -33,15 +33,18 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   }
 
   @Override
-  public List<VoteRecord> findVoteRecordByDate(LocalDate date) {
-  return voteRecordRepository.findByDate(date);
+  public List<VoteRecord> findVoteRecordByDebateDate(LocalDate date) {
+  return voteRecordRepository.findByDebateDate(date);
   }
 
   @Override
-  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id) {
+  public void IncrementVoteCountByCandidateId(Long id) {
       VoteRecord VTC = voteRecordRepository
               .findByCandidateId(id)
               .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
         VTC.setVoteCount(VTC.getVoteCount()+1);
   }
+
+  @Override
+  public void addVoteRecord(VoteRecord voteRecord) { voteRecordRepository.save(voteRecord);}
 }

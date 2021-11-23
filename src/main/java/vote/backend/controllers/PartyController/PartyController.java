@@ -11,11 +11,11 @@ import java.util.List;
 @RestController
 public class PartyController implements PartyControllerInterface {
 
+  @Autowired
   PartyServiceImpl partyService;
 
-
   @Override
-  public List<Party> findAllParties() { return partyService.findAllParties();}
+  public List<Party> findAllParties() { return partyService.findAll();}
 
   @Override
   public Party findPartyById(Long id) { return partyService.findPartyById(id); }

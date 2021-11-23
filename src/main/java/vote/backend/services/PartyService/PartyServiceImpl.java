@@ -1,11 +1,13 @@
 package vote.backend.services.PartyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import vote.backend.entities.Party.Party;
 import vote.backend.repositories.PartyRepository;
 
 import java.util.List;
 
+@Service
 public class PartyServiceImpl implements PartyService {
 
   @Autowired
@@ -13,7 +15,7 @@ public class PartyServiceImpl implements PartyService {
 
 
   @Override
-  public List<Party> findAllParties() { return partyRepository.findAll(); }
+  public List<Party> findAll() { return partyRepository.findAll(); }
 
   @Override
   public Party findPartyById(Long id) {
@@ -21,6 +23,9 @@ public class PartyServiceImpl implements PartyService {
             .findById(id)
             .orElseThrow(() -> new RuntimeException("Party with the id" + id + "not found"));
   }
+
+  @Override
+  public void addParty(Party party) { partyRepository.save(party); }
 
   @Override
   public void deletePartyById(Long id) {

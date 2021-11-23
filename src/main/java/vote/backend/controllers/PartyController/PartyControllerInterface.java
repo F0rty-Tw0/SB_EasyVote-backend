@@ -23,7 +23,7 @@ public interface PartyControllerInterface {
           notes = "Execute to retrieve all <b>Parties</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+//  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Party> findAllParties();
 
   @ApiOperation(

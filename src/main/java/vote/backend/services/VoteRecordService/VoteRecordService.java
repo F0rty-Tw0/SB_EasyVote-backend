@@ -12,7 +12,9 @@ public interface VoteRecordService {
 
   public VoteRecord findVoteRecordByCandidateId(Long id);
 
-  public List<VoteRecord> findVoteRecordByDate(LocalDate date);
+  public List<VoteRecord> findVoteRecordByDebateDate(LocalDate date);
 
-  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id);
+  public void IncrementVoteCountByCandidateId( Long id);
+
+  public void addVoteRecord(VoteRecord voteRecord);
 }

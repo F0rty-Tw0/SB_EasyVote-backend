@@ -14,4 +14,6 @@ public interface CandidateService {
 //  public void addCandidate(CandidateDTO candidate);
 
   public void deleteCandidateById(Long id);
+
+  public void addCandidate(Candidate candidate);
 }
