@@ -36,4 +36,9 @@ public class Municipality {
 
   @ManyToMany
   private List<User> users = new ArrayList<>();
+
+  public Municipality(Long code, String name) {
+    this.code = code;
+    this.name = name;
+  }
 }
