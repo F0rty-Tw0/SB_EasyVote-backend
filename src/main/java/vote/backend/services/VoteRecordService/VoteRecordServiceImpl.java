@@ -33,8 +33,8 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   }
 
   @Override
-  public List<VoteRecord> findVoteRecordByDate(LocalDate date) {
-  return voteRecordRepository.findByDate(date);
+  public List<VoteRecord> findVoteRecordByDebateDate(LocalDate date) {
+  return voteRecordRepository.findByDebateDate(date);
   }
 
   @Override
