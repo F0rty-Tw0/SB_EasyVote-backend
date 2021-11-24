@@ -11,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.User.Nem.Nem;
-import vote.backend.entities.User.Roles.ERoles;
-import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.User.Role.ERoles;
+import vote.backend.entities.User.Role.Role;
 import vote.backend.entities.User.User;
 import vote.backend.repositories.NemRepository;
 import vote.backend.repositories.RoleRepository;
@@ -48,7 +48,9 @@ public class AuthServiceImpl implements AuthService {
   private String ROLE_NOT_FOUND_MESSAGE = "Error: Role is not found.";
 
   @Override
-  public ResponseEntity<?> registerNem(SignupRequest signUpRequest) {
+  public ResponseEntity<MessageResponse> registerNem(
+    SignupRequest signUpRequest
+  ) {
     boolean nemExists = nemRepository.existsByUsername(
       signUpRequest.getUsername()
     );
@@ -107,7 +109,7 @@ public class AuthServiceImpl implements AuthService {
     );
 
     String role = grantedAuthority.getAuthority();
-    
+
     return ResponseEntity.ok(
       new JwtResponse(jwt, nemDetails.getId(), nemDetails.getUsername(), role)
     );

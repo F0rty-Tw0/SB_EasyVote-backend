@@ -14,9 +14,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vote.backend.entities.Municipality.Municipality;
-import vote.backend.entities.Posts.Comments.Comment;
+import vote.backend.entities.Post.Comment.Comment;
 import vote.backend.entities.User.Nem.Nem;
-import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.User.Role.Role;
 
 @Getter
 @Setter

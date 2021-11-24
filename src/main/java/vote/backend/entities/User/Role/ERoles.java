@@ -1,4 +1,4 @@
-package vote.backend.entities.User.Roles;
+package vote.backend.entities.User.Role;
 
 
 public enum ERoles {

@@ -19,6 +19,8 @@ public class Candidate extends User {
   @ManyToOne
   private Party party;
 
+  private String slogan;
+
   public Candidate(
     String name,
     Long phoneNumber,
@@ -32,8 +34,9 @@ public class Candidate extends User {
     this.party = party;
   }
 
-  public Candidate(User user, Party party) {
+  public Candidate(User user, Party party, String slogan) {
     super(user.getNem(), user.getRole());
     this.party = party;
+    this.slogan = slogan;
   }
 }

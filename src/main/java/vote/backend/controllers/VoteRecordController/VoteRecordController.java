@@ -23,17 +23,13 @@ public class VoteRecordController implements VoteRecordControllerInterface {
     return voteRecordService.findVoteRecordById(id);
   }
 
-  //
-  //  @Override
-  //  public VoteRecord findVoteRecordByCandidateId(Long id) {
-  //    return null;
-  //  }
-
   @Override
   public VoteRecord findVoteRecordByDebateDate(LocalDate date) {
     return null;
   }
 
   @Override
-  public void IncrementVoteCountByCandidateId(Long id) {}
+  public void incrementVoteCountByCandidateId(Long id) {
+    voteRecordService.incrementVoteCountByCandidateId(id);
+  }
 }

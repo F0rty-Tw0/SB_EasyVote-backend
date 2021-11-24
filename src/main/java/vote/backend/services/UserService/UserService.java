@@ -10,7 +10,9 @@ public interface UserService {
 
   public User findUserByNemId(Long id);
 
+  public void convertUserToCandidate(Long id);
+
   public void addUser(User user);
 
-  public void convertUserToCandidate(Long id);
+  public void deleteUserById(Long id);
 }

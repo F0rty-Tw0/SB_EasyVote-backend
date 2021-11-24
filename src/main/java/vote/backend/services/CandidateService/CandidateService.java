@@ -3,10 +3,10 @@ package vote.backend.services.CandidateService;
 import java.util.List;
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
-import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.User.Role.Role;
 
 public interface CandidateService {
-  public List<Candidate> findAll();
+  public List<Candidate> findAllCandidates();
 
   public Candidate findCandidateById(Long id);
 
@@ -16,7 +16,7 @@ public interface CandidateService {
 
   public void updateCandidateRoleById(Long id, Role role);
 
-  public void deleteCandidateById(Long id);
-
   public void addCandidate(Candidate candidate);
+
+  public void deleteCandidateById(Long id);
 }

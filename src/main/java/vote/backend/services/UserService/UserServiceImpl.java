@@ -39,12 +39,17 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void convertUserToCandidate(Long id) {
+    userRepository.convertUserToCandidate(id);
+  }
+
+  @Override
   public void addUser(User user) {
     userRepository.save(user);
   }
 
   @Override
-  public void convertUserToCandidate(Long id) {
-    userRepository.convertUserToCandidate(id);
+  public void deleteUserById(Long id) {
+    userRepository.deleteById(id);
   }
 }

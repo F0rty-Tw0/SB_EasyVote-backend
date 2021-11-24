@@ -18,6 +18,11 @@ public class MunicipalityServiceImp implements MunicipalityService {
   MunicipalityRepository municipalityRepository;
 
   @Override
+  public List<Municipality> findAllMunicipalities() {
+    return municipalityRepository.findAll();
+  }
+
+  @Override
   public Municipality findMunicipalityById(Long id) {
     return municipalityRepository
       .findById(id)
@@ -39,19 +44,6 @@ public class MunicipalityServiceImp implements MunicipalityService {
             "Municipality whit this municipalityCode not found " + code
           )
       );
-  }
-
-  @Override
-  public void delete(Long id) {
-    Optional<Municipality> municipality = municipalityRepository.findById(id);
-    municipality.ifPresent(
-      municipality1 -> municipalityRepository.delete(municipality1)
-    );
-  }
-
-  @Override
-  public List<Municipality> findAll() {
-    return municipalityRepository.findAll();
   }
 
   @Override
@@ -90,5 +82,18 @@ public class MunicipalityServiceImp implements MunicipalityService {
             "Municipality whit this municipalityCode not found " + code
           )
       );
+  }
+
+  @Override
+  public void addMunicipality(Municipality municipality) {
+    municipalityRepository.save(municipality);
+  }
+
+  @Override
+  public void deleteMunicipalityById(Long id) {
+    Optional<Municipality> municipality = municipalityRepository.findById(id);
+    municipality.ifPresent(
+      municipality1 -> municipalityRepository.delete(municipality1)
+    );
   }
 }

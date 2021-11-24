@@ -8,14 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import vote.backend.entities.User.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-  public Boolean existsByNemId(Long nemId);
-
   public Optional<User> findByEmail(String email);
 
   public Optional<User> findByNemId(Long id);
 
+  public Boolean existsByNemId(Long nemId);
+
   @Modifying
   @Transactional
-  @Query("Update User SET dtype = Candidate WHERE id=:id")
+  @Query("Update User SET dType = Candidate WHERE id=:id")
   public void convertUserToCandidate(Long id);
 }

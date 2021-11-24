@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vote.backend.security.AuthenticationPayload.Request.LoginRequest;
 import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
 import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
+import vote.backend.security.AuthenticationPayload.Response.MessageResponse;
 
 @Api(
   tags = "Authentication - (REQUIRED)",
@@ -31,7 +32,7 @@ public interface AuthControllerInterface {
     notes = "In order to create a new <b>User</b>, you need an Email and Password. <em>(<b>Role</b> is optional)</em>."
   )
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(
+  public ResponseEntity<MessageResponse> registerUser(
     @Valid @RequestBody SignupRequest signUpRequest
   );
 }

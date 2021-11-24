@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
-import vote.backend.entities.User.Roles.Role;
+import vote.backend.entities.User.Role.Role;
 import vote.backend.repositories.CandidateRepository;
 
 @Service
@@ -15,7 +15,7 @@ public class CandidateServiceImpl implements CandidateService {
   private CandidateRepository candidateRepository;
 
   @Override
-  public List<Candidate> findAll() {
+  public List<Candidate> findAllCandidates() {
     return candidateRepository.findAll();
   }
 
@@ -26,11 +26,6 @@ public class CandidateServiceImpl implements CandidateService {
       .orElseThrow(
         () -> new RuntimeException("Candidate with id" + id + "not found")
       );
-  }
-
-  @Override
-  public void addCandidate(Candidate candidate) {
-    candidateRepository.save(candidate);
   }
 
   @Override
@@ -65,5 +60,12 @@ public class CandidateServiceImpl implements CandidateService {
   }
 
   @Override
-  public void deleteCandidateById(Long id) {}
+  public void addCandidate(Candidate candidate) {
+    candidateRepository.save(candidate);
+  }
+
+  @Override
+  public void deleteCandidateById(Long id) {
+    candidateRepository.deleteById(id);
+  }
 }

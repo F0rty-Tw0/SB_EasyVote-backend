@@ -14,7 +14,7 @@ public class PartyController implements PartyControllerInterface {
 
   @Override
   public List<Party> findAllParties() {
-    return partyService.findAll();
+    return partyService.findAllParties();
   }
 
   @Override

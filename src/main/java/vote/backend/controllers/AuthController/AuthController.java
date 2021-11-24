@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vote.backend.security.AuthenticationPayload.Request.LoginRequest;
 import vote.backend.security.AuthenticationPayload.Request.SignupRequest;
 import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
+import vote.backend.security.AuthenticationPayload.Response.MessageResponse;
 import vote.backend.services.AuthService.AuthService;
 
 @RestController
@@ -22,7 +23,9 @@ public class AuthController implements AuthControllerInterface {
   }
 
   @Override
-  public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
+  public ResponseEntity<MessageResponse> registerUser(
+    SignupRequest signUpRequest
+  ) {
     return authService.registerNem(signUpRequest);
   }
 }
