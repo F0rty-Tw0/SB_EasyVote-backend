@@ -4,10 +4,15 @@ import vote.backend.entities.Party.Party;
 
 import java.util.List;
 
+
 public interface PartyService {
-  public List<Party> findAllParties();
+  public List<Party> findAll();
 
   public Party findPartyById(Long id);
 
+  public void addParty(Party party);
+
   public void deletePartyById(Long id);
+
+  public Party findPartyByName(String name);
 }

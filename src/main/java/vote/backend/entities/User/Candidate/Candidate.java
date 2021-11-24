@@ -18,4 +18,22 @@ public class Candidate extends User {
 
   @ManyToOne
   private Party party;
+
+  public Candidate(
+    String name,
+    Long phoneNumber,
+    String address,
+    String zip,
+    String email,
+    Long cpr,
+    Party party
+  ) {
+    super(name, phoneNumber, address, zip, email, cpr);
+    this.party = party;
+  }
+
+  public Candidate(User user, Party party) {
+    super(user.getNem(), user.getRole());
+    this.party = party;
+  }
 }
