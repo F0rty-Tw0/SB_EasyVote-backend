@@ -40,7 +40,7 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   }
 
   @Override
-  public VoteRecord IncrementVoteCountByCandidateId(Long id) {
+  public void IncrementVoteCountByCandidateId(VoteRecord voteRecord, Long id) {
       VoteRecord VTC = voteRecordRepository
               .findByCandidateId(id)
               .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
@@ -49,7 +49,7 @@ public class VoteRecordServiceImpl implements VoteRecordService {
       Long newCount = VTC.incrementVoteCount(oldCount);
       System.out.println(newCount);
         VTC.setVoteCount(newCount);
-           return voteRecordRepository.save(VTC);
+          voteRecordRepository.save(VTC);
   }
 
   @Override
