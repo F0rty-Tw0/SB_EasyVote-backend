@@ -127,6 +127,9 @@ public class DatabaseConfig implements CommandLineRunner {
       voteRecordService.addVoteRecord(new VoteRecord(candidate, 1L, LocalDate.of(2015, 02, 20)
 
       ));
-    }
+
+
+      }
+
   }
 }

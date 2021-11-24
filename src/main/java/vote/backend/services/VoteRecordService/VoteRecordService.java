@@ -14,7 +14,9 @@ public interface VoteRecordService {
 
   public List<VoteRecord> findVoteRecordByDebateDate(LocalDate date);
 
-  public void IncrementVoteCountByCandidateId(VoteRecord voteRecord, Long id);
+  public void IncrementVoteCountByCandidateId(Long id);
 
   public void addVoteRecord(VoteRecord voteRecord);
+
+  public void editVoteRecord(VoteRecord voteRecord, Long id);
 }

@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vote.backend.entities.VoteRecord.VoteRecord;
 
@@ -61,7 +63,7 @@ public interface VoteRecordControllerInterface {
           authorizations = { @Authorization(value = "jwtToken") },
           notes = "Enter the <b>id</b> of a candidate to increment a <b>VoteRecord</b> Object."
   )
-  @PostMapping("/{id}")
+  @GetMapping("/voteCount/{id}")
 //  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public void IncrementVoteCountByCandidateId(@PathVariable Long id);
 

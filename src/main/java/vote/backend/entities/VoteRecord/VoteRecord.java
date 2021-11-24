@@ -49,10 +49,10 @@ public class VoteRecord {
     this.debateDate = debateDate;
   }
 
-  public Long incrementVoteCount(Long voteCount){
+ /* public Long incrementVoteCount(Long voteCount){
     this.voteCount = voteCount;
       return ++voteCount;
 
   }
-
+*/
 }
