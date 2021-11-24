@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
+import vote.backend.entities.User.User;
+import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Roles.ERoles;
 import vote.backend.entities.User.Roles.Role;
 import vote.backend.repositories.MunicipalityRepository;
@@ -38,8 +40,6 @@ public class DatabaseConfig implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    System.out.println("config runs");
-
     if (municipalityRepository.findAll().isEmpty()) {
       String url = "https://api.dataforsyningen.dk/kommuner";
 

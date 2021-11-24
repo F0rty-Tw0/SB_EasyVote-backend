@@ -1,24 +1,26 @@
 package vote.backend.entities.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vote.backend.entities.Municipality.Municipality;
+import vote.backend.entities.Posts.Comments.Comment;
 import vote.backend.entities.User.Nem.Nem;
 import vote.backend.entities.User.Roles.Role;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users", schema = "easyvote")
 public class User {
@@ -50,4 +52,7 @@ public class User {
 
   @ManyToOne
   private Municipality municipality;
+
+  @ManyToMany
+  private List<Comment> comments = new ArrayList<>();
 }
