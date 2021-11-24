@@ -9,11 +9,12 @@ import vote.backend.services.CandidateService.CandidateServiceImpl;
 @RestController
 public class CandidateController implements CandidateControllerInterface {
 
+  @Autowired
   CandidateServiceImpl candidateService;
 
   @Override
   public List<Candidate> findAllCandidates() {
-    return candidateService.findAllCandidates();
+    return candidateService.findAll();
   }
 
   @Override

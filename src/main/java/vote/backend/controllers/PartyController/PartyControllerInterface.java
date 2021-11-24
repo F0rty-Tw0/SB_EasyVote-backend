@@ -22,6 +22,7 @@ public interface PartyControllerInterface {
           authorizations = { @Authorization(value = "jwtToken") },
           notes = "Execute to retrieve all <b>Parties</b>."
   )
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   @GetMapping
 //  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Party> findAllParties();

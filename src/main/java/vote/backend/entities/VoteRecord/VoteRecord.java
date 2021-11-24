@@ -42,4 +42,17 @@ public class VoteRecord {
 
   @Column(unique = true)
   private LocalDate debateDate;
+
+  public VoteRecord(Candidate candidate, Long voteCount, LocalDate debateDate){
+    this.candidate = candidate;
+    this.voteCount = voteCount;
+    this.debateDate = debateDate;
+  }
+
+  public Long incrementVoteCount(Long voteCount){
+    this.voteCount = voteCount;
+      return voteCount++;
+
+  }
+
 }

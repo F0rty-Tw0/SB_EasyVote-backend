@@ -1,12 +1,14 @@
 package vote.backend.services.VoteRecordService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import vote.backend.entities.VoteRecord.VoteRecord;
 import vote.backend.repositories.VoteRecordRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class VoteRecordServiceImpl implements VoteRecordService {
 
   @Autowired
@@ -38,11 +40,13 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   }
 
   @Override
-  public void IncrementVoteCountByCandidateId(Long id) {
+  public VoteRecord IncrementVoteCountByCandidateId(Long id) {
       VoteRecord VTC = voteRecordRepository
               .findByCandidateId(id)
               .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
-        VTC.setVoteCount(VTC.getVoteCount()+1);
+        Long oldCount = VTC.getVoteCount();
+        VTC.incrementVoteCount(oldCount);
+        return voteRecordRepository.save(VTC);
   }
 
   @Override

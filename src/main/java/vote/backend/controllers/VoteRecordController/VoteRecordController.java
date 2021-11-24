@@ -1,5 +1,6 @@
 package vote.backend.controllers.VoteRecordController;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import vote.backend.entities.VoteRecord.VoteRecord;
 import vote.backend.services.VoteRecordService.VoteRecordServiceImpl;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 public class VoteRecordController implements VoteRecordControllerInterface {
 
+  @Autowired
   VoteRecordServiceImpl voteRecordService;
 
   @Override

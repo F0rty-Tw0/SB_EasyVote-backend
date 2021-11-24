@@ -7,8 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vote.backend.entities.VoteRecord.VoteRecord;
 
@@ -28,7 +26,7 @@ public interface VoteRecordControllerInterface {
           notes = "Execute to retrieve all <b>Vote records</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+//  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<VoteRecord> findAllVoteRecords();
 
   @ApiOperation(
@@ -63,8 +61,8 @@ public interface VoteRecordControllerInterface {
           authorizations = { @Authorization(value = "jwtToken") },
           notes = "Enter the <b>id</b> of a candidate to increment a <b>VoteRecord</b> Object."
   )
-  @PutMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PostMapping("/{id}")
+//  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public void IncrementVoteCountByCandidateId(@PathVariable Long id);
 
 }

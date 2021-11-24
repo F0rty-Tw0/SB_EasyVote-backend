@@ -8,7 +8,7 @@ import vote.backend.entities.User.User;
 import java.util.List;
 
 public interface CandidateService {
-  public List<Candidate> findAllCandidates();
+  public List<Candidate> findAll();
 
   public Candidate findCandidateById(Long id);
 

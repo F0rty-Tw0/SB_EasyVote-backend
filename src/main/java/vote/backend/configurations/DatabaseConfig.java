@@ -27,6 +27,8 @@ import vote.backend.services.CandidateService.CandidateService;
 import vote.backend.services.PartyService.PartyService;
 import vote.backend.services.VoteRecordService.VoteRecordService;
 
+import java.time.LocalDate;
+
 @Component
 @Profile("!test")
 public class DatabaseConfig implements CommandLineRunner {
@@ -52,6 +54,7 @@ public class DatabaseConfig implements CommandLineRunner {
   @Autowired
   private CandidateService candidateService;
 
+  @Autowired
   private VoteRecordService voteRecordService;
 
   @Override
@@ -105,7 +108,7 @@ public class DatabaseConfig implements CommandLineRunner {
 
     }
 
-    if (candidateService.findAllCandidates().isEmpty()) {
+    if (candidateService.findAll().isEmpty()) {
       LoginRequest loginRequest = new LoginRequest("admin", "test");
       ResponseEntity<JwtResponse> authentication = authService.authenticateUser(loginRequest);
       Long nemId = authentication.getBody().getId();
@@ -118,10 +121,12 @@ public class DatabaseConfig implements CommandLineRunner {
       candidateService.updateCandidateRoleById(user.getId(), role);
     }
 
-//    if (voteRecordService.findAllVoteRecords().isEmpty()) {
-//      voteRecordService.addVoteRecord(new VoteRecord(
-//        new Candidate(1)
-//      ));
-//    }
+    if (voteRecordService.findAllVoteRecords().isEmpty()) {
+      Candidate candidate = candidateService.findCandidateById(1L);
+
+      voteRecordService.addVoteRecord(new VoteRecord(candidate, 1L, LocalDate.of(2015, 02, 20)
+
+      ));
+    }
   }
 }
