@@ -51,7 +51,7 @@ public class VoteRecord {
 
   public Long incrementVoteCount(Long voteCount){
     this.voteCount = voteCount;
-      return voteCount++;
+      return ++voteCount;
 
   }
 

@@ -44,9 +44,12 @@ public class VoteRecordServiceImpl implements VoteRecordService {
       VoteRecord VTC = voteRecordRepository
               .findByCandidateId(id)
               .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
-        Long oldCount = VTC.getVoteCount();
-        VTC.incrementVoteCount(oldCount);
-        return voteRecordRepository.save(VTC);
+      Long oldCount = VTC.getVoteCount();
+      System.out.println(oldCount);
+      Long newCount = VTC.incrementVoteCount(oldCount);
+      System.out.println(newCount);
+        VTC.setVoteCount(newCount);
+           return voteRecordRepository.save(VTC);
   }
 
   @Override
