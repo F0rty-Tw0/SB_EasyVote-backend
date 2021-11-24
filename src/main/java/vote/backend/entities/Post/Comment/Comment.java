@@ -1,25 +1,24 @@
-package vote.backend.entities.User.Roles;
+package vote.backend.entities.Post.Comment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vote.backend.entities.User.User;
 
-@Setter
 @Getter
-@Entity
+@Setter
 @NoArgsConstructor
-@Table(name = "roles", schema = "easyvote")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Role {
+@Entity
+@Table(name = "comments", schema = "easyvote")
+public class Comment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +26,13 @@ public class Role {
   private Long id;
 
   @Column(nullable = false)
-  @Enumerated(EnumType.STRING)
-  private ERoles name;
+  private String text;
 
-  public Role(ERoles name) {
-    this.name = name;
-  }
+  @ManyToOne
+  private User author;
+
+  private int likes;
+
+  private LocalDate dateCreated;
+  private LocalDate dateEdited;
 }

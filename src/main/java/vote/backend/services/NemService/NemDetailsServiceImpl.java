@@ -17,8 +17,7 @@ public class NemDetailsServiceImpl implements UserDetailsService {
 
   @Override
   @Transactional
-  public UserDetails loadUserByUsername(String username)
-    throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username) {
     Nem nem = nemRepository
       .findByUsername(username)
       .orElseThrow(

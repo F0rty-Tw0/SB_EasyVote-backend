@@ -14,8 +14,7 @@ public class MunicipalityController implements MunicipalityControllerInterface {
 
   @Override
   public List<Municipality> findAllMunicipalities() {
-    List<Municipality> municipalityList = municipalityService.findAll();
-    return municipalityList;
+    return municipalityService.findAllMunicipalities();
   }
 
   @Override
@@ -29,7 +28,7 @@ public class MunicipalityController implements MunicipalityControllerInterface {
   }
 
   @Override
-  public Municipality findMunicipalityByMunicipalityZipCode(Long zipcode) {
-    return municipalityService.findMunicipalityByZipCode(zipcode);
+  public Municipality findMunicipalityByMunicipalityZipCode(Long zipCode) {
+    return municipalityService.findMunicipalityByZipCode(zipCode);
   }
 }

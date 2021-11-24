@@ -7,10 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vote.backend.entities.VoteRecord.VoteRecord;
 
@@ -18,7 +15,7 @@ import vote.backend.entities.VoteRecord.VoteRecord;
   tags = "VoteRecord",
   description = "- (OPTIONAL) A secured endpoint for <b>Parties</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
 )
-@RequestMapping("/api/voterecords")
+@RequestMapping("/api/vote-records")
 public interface VoteRecordControllerInterface {
   @ApiOperation(
     value = " - Returns all of the Vote records",
@@ -26,7 +23,7 @@ public interface VoteRecordControllerInterface {
     notes = "Execute to retrieve all <b>Vote records</b>."
   )
   @GetMapping
-  //  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<VoteRecord> findAllVoteRecords();
 
   @ApiOperation(
@@ -37,15 +34,6 @@ public interface VoteRecordControllerInterface {
   @GetMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public VoteRecord findVoteRecordById(@PathVariable Long id);
-
-  //  @ApiOperation(
-  //          value = " - Returns the Vote record by the candidate Id",
-  //          authorizations = { @Authorization(value = "jwtToken") },
-  //          notes = "Enter the <b>id</b> of a Candidate to retrieve a <b>VoteRecord</b> Object."
-  //  )
-  //  @GetMapping("/{id}")
-  //  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  //  public VoteRecord findVoteRecordByCandidateId(@PathVariable Long id);
 
   @ApiOperation(
     value = " - Returns the Vote record by the date",
@@ -61,7 +49,7 @@ public interface VoteRecordControllerInterface {
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>id</b> of a candidate to increment a <b>VoteRecord</b> Object."
   )
-  @GetMapping("/voteCount/{id}")
-  //  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public void IncrementVoteCountByCandidateId(@PathVariable Long id);
+  @GetMapping("/vote-count/{id}")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public void incrementVoteCountByCandidateId(@PathVariable Long id);
 }

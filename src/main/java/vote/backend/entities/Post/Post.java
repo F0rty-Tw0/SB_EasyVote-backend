@@ -1,4 +1,4 @@
-package vote.backend.entities.Posts;
+package vote.backend.entities.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vote.backend.entities.Posts.Comments.Comment;
+import vote.backend.entities.Post.Comment.Comment;
 
 @Getter
 @Setter

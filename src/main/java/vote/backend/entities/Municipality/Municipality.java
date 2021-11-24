@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vote.backend.entities.Post.Post;
 import vote.backend.entities.User.User;
 
 @Entity
@@ -36,6 +37,9 @@ public class Municipality {
 
   @ManyToMany
   private List<User> users = new ArrayList<>();
+
+  @ManyToMany
+  private List<Post> posts = new ArrayList<>();
 
   public Municipality(Long code, String name) {
     this.code = code;

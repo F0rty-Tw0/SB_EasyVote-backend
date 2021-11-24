@@ -14,7 +14,7 @@ public class CandidateController implements CandidateControllerInterface {
 
   @Override
   public List<Candidate> findAllCandidates() {
-    return candidateService.findAll();
+    return candidateService.findAllCandidates();
   }
 
   @Override

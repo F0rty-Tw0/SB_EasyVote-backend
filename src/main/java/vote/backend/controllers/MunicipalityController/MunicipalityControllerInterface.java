@@ -56,11 +56,11 @@ public interface MunicipalityControllerInterface {
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>ZipCode</b> of a Municipality to retrieve a <b>Municipality</b> Object."
   )
-  @GetMapping("/zip/{zipcode}")
+  @GetMapping("/zip/{zipCode}")
   @PreAuthorize(
     "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
   )
   public Municipality findMunicipalityByMunicipalityZipCode(
-    @PathVariable Long zipcode
+    @PathVariable Long zipCode
   );
 }
