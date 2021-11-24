@@ -1,11 +1,16 @@
 package vote.backend.security.AuthenticationPayload.Request;
 
 import javax.validation.constraints.NotBlank;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
 
   @NotBlank

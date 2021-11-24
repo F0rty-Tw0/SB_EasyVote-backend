@@ -55,4 +55,25 @@ public class User {
 
   @ManyToMany
   private List<Comment> comments = new ArrayList<>();
+
+  public User(Nem nem, Role role) {
+    this.nem = nem;
+    this.role = role;
+  }
+
+  public User(
+    String name,
+    Long phoneNumber,
+    String address,
+    String zip,
+    String email,
+    Long cpr
+  ) {
+    this.name = name;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+    this.zip = zip;
+    this.email = email;
+    this.cpr = cpr;
+  }
 }

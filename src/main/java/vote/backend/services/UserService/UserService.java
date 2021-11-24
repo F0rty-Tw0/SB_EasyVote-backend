@@ -11,4 +11,6 @@ public interface UserService {
   public User findUserByNemId(Long id);
 
   public void addUser(User user);
+
+  public void convertUserToCandidate(Long id);
 }

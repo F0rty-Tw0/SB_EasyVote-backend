@@ -1,12 +1,14 @@
 package vote.backend.services.VoteRecordService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import vote.backend.entities.VoteRecord.VoteRecord;
 import vote.backend.repositories.VoteRecordRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class VoteRecordServiceImpl implements VoteRecordService {
 
   @Autowired
@@ -37,11 +39,32 @@ public class VoteRecordServiceImpl implements VoteRecordService {
   return voteRecordRepository.findByDebateDate(date);
   }
 
+
+
   @Override
-  public void updateVoteCountByCandidateId(VoteRecord voteRecord, Long id) {
+  public void editVoteRecord(VoteRecord voteRecord, Long id) {
+    VoteRecord oldRecord = voteRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
+    oldRecord.setVoteCount(voteRecord.getVoteCount());
+    oldRecord.setCandidate(voteRecord.getCandidate());
+    oldRecord.setDebateDate(voteRecord.getDebateDate());
+    voteRecordRepository.save(oldRecord);
+  }
+
+  @Override
+  public void IncrementVoteCountByCandidateId(Long id) {
       VoteRecord VTC = voteRecordRepository
               .findByCandidateId(id)
               .orElseThrow(() -> new RuntimeException("Vote record with the candidate id" + id +"not found"));
-        VTC.setVoteCount(VTC.getVoteCount()+1);
+
+      Long newCount = VTC.getVoteCount()+1;
+      VoteRecord newVote = new VoteRecord();
+      newVote.setVoteCount(newCount);
+
+      newVote.setCandidate(VTC.getCandidate());
+      newVote.setDebateDate(VTC.getDebateDate());
+     editVoteRecord(newVote, id);
   }
+
+  @Override
+  public void addVoteRecord(VoteRecord voteRecord) { voteRecordRepository.save(voteRecord);}
 }
