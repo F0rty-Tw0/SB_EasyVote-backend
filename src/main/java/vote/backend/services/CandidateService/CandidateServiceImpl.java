@@ -29,13 +29,7 @@ public class CandidateServiceImpl implements CandidateService {
   }
 
   @Override
-  public void updateCandidateById(Long id) {
-    Candidate candidate = candidateRepository
-      .findById(id)
-      .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
-      );
-  }
+  public void updateCandidateById(Long id) {}
 
   @Override
   public void updateCandidatePartyById(Long id, Party party) {

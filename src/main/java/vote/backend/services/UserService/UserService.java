@@ -1,8 +1,6 @@
 package vote.backend.services.UserService;
 
 import java.util.List;
-import vote.backend.entities.Post.Comment.Comment;
-import vote.backend.entities.Post.Post;
 import vote.backend.entities.User.User;
 
 public interface UserService {
@@ -12,13 +10,9 @@ public interface UserService {
 
   public User findUserByNemId(Long id);
 
-  public void convertUserToCandidate(Long id);
+  public void convertUserToCandidate(User user);
 
   public void updateUser(Long id, User user);
-
-  public void addPostToUser(User user, Post post);
-
-  public void addCommentToUser(User user, Comment comment);
 
   public void addUser(User user);
 

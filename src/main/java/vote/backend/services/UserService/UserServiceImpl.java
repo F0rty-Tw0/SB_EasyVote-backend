@@ -3,16 +3,23 @@ package vote.backend.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vote.backend.entities.Post.Comment.Comment;
-import vote.backend.entities.Post.Post;
+import vote.backend.entities.User.Role.Role;
 import vote.backend.entities.User.User;
 import vote.backend.repositories.UserRepository;
+import vote.backend.services.MunicipalityService.MunicipalityService;
+import vote.backend.services.RoleService.RoleService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private MunicipalityService municipalityService;
+
+  @Autowired
+  private RoleService roleService;
 
   private String type = "User";
 
@@ -41,8 +48,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void convertUserToCandidate(Long id) {
-    userRepository.convertUserToCandidate(id);
+  public void convertUserToCandidate(User user) {
+    Role role = roleService.findRoleByName("ROLE_CANDIDATE");
+    user.setRole(role);
+    userRepository.save(user);
+    userRepository.convertUserToCandidate(user.getId());
   }
 
   @Override
@@ -58,30 +68,14 @@ public class UserServiceImpl implements UserService {
     foundUser.setPhoneNumber(user.getPhoneNumber());
     foundUser.setAddress(user.getAddress());
     foundUser.setBirthDate(user.getBirthDate());
-    foundUser.setZip(user.getZip());
-    foundUser.setMunicipality(user.getMunicipality());
-
-    userRepository.save(user);
-  }
-
-  @Override
-  public void addPostToUser(User user, Post post) {
-    user.addPost(post);
-    userRepository.save(user);
-  }
-
-  @Override
-  public void addCommentToUser(User author, Comment comment) {
-    User foundUser = userRepository
-      .findById(author.getId())
-      .orElseThrow(
-        () ->
-          new RuntimeException(
-            type + " with id: " + author.getId() + " not found"
-          )
+    if (user.getZip() != null) {
+      foundUser.setZip(user.getZip());
+      foundUser.setMunicipality(
+        municipalityService.findMunicipalityByZipCode(
+          Long.parseLong(user.getZip())
+        )
       );
-
-    foundUser.addComment(comment);
+    }
     userRepository.save(foundUser);
   }
 

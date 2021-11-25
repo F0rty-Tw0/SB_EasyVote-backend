@@ -52,7 +52,7 @@ public class VoteRecordServiceImpl implements VoteRecordService {
           )
       );
 
-    Long newCount = VTC.getVoteCount() + 1;
+    int newCount = VTC.getVoteCount() + 1;
     VoteRecord newVote = new VoteRecord();
     newVote.setVoteCount(newCount);
 
