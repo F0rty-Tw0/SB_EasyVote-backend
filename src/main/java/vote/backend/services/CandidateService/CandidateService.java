@@ -16,6 +16,8 @@ public interface CandidateService {
 
   public void updateCandidateRoleById(Long id, Role role);
 
+  public void updateCandidateSloganById(Long id, String slogan);
+
   public void addCandidate(Candidate candidate);
 
   public void deleteCandidateById(Long id);

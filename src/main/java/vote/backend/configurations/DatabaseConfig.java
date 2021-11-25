@@ -136,6 +136,7 @@ public class DatabaseConfig implements CommandLineRunner {
       Party party = partyService.findPartyByName("Veganerpartiet");
       candidateService.updateCandidatePartyById(user.getId(), party);
       candidateService.updateCandidateRoleById(user.getId(), role);
+      candidateService.updateCandidateSloganById(user.getId(), "Help the climate, eat green!");
     }
   }
 
