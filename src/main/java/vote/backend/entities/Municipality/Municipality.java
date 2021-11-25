@@ -1,9 +1,12 @@
 package vote.backend.entities.Municipality;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,5 +47,13 @@ public class Municipality {
   public Municipality(Long code, String name) {
     this.code = code;
     this.name = name;
+  }
+
+  public void addUser(User user) {
+    users.add(user);
+  }
+
+  public void addPost(Post post) {
+    posts.add(post);
   }
 }

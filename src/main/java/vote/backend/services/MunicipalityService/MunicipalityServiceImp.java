@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
+import vote.backend.entities.Post.Post;
+import vote.backend.entities.User.User;
 import vote.backend.errorHandler.ResourceNotFoundException;
 import vote.backend.repositories.MunicipalityRepository;
 
@@ -82,6 +84,32 @@ public class MunicipalityServiceImp implements MunicipalityService {
             "Municipality whit this municipalityCode not found " + code
           )
       );
+  }
+
+  @Override
+  public void updateMunicipalityById(Long id, Municipality municipality) {
+    Municipality foundMunicipality = municipalityRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            "Municipality whit this municipalityCode not found " + id
+          )
+      );
+
+    municipalityRepository.save(foundMunicipality);
+  }
+
+  @Override
+  public void addPostToMunicipality(Post post, Municipality municipality) {
+    municipality.addPost(post);
+    municipalityRepository.save(municipality);
+  }
+
+  @Override
+  public void addUserToMunicipality(User user, Municipality municipality) {
+    municipality.addUser(user);
+    municipalityRepository.save(municipality);
   }
 
   @Override
