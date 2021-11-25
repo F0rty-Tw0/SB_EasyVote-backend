@@ -60,13 +60,13 @@ public class CandidateServiceImpl implements CandidateService {
   }
 
   @Override
-  public void updateCandidateSloganById(Long id, String slogan) {
+  public void updateCandidateSloganById(Long id, String string) {
     Candidate candidate = candidateRepository
-            .findById(id)
-            .orElseThrow(
-                    () -> new RuntimeException("Candidate with id" + id + "not found")
-            );
-    candidate.setSlogan(slogan);
+      .findById(id)
+      .orElseThrow(
+        () -> new RuntimeException("Candidate with id" + id + "not found")
+      );
+    candidate.setSlogan(string);
     candidateRepository.save(candidate);
   }
 
