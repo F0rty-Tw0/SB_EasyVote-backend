@@ -1,6 +1,9 @@
 package vote.backend.configurations;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,7 @@ public class DatabaseConfig implements CommandLineRunner {
     createParties();
     createCandidates();
     createVoteRecords();
+    getSumVotesByPartyId(7L);
   }
 
   private void createNems() {
@@ -148,5 +152,35 @@ public class DatabaseConfig implements CommandLineRunner {
         new VoteRecord(candidate, 1L, LocalDate.of(2015, 02, 20))
       );
     }
+  }
+
+  private void getSumVotesByPartyId(Long id) {
+    // Create variable equal to the size of all found candidates
+    int numberOfCandidates = candidateService.findAllCandidates().size();
+
+    //Init new Arraylist that will contain the votes for each candidate
+    ArrayList<Long> votes = new ArrayList<>();
+
+    // Find each candidate, equal to the total number of candidates
+    for (long i = 1; i < numberOfCandidates + 1; i++) {
+      Candidate candidate = candidateService.findCandidateById(i);
+
+      // If the candidate's party id is equal to the queried id, add voteCount to the Array
+      if (candidate.getParty().getId() == id) {
+        VoteRecord voteRecord = voteRecordService.findVoteRecordByCandidateId(i);
+        votes.add(voteRecord.getVoteCount());
+
+      }
+    }
+    //Calculate the sum of the votes
+    long sum = 0;
+
+    for (long i = 0; i < votes.size(); i++) {
+      sum += (votes.get((int) i));
+
+    }
+    //Print out the sum (Testing purpose)
+    System.out.println(sum);
+
   }
 }
