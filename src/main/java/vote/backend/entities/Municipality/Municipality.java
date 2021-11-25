@@ -1,23 +1,15 @@
 package vote.backend.entities.Municipality;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vote.backend.entities.Post.Post;
-import vote.backend.entities.User.User;
 
 @Entity
 @Getter
@@ -38,22 +30,8 @@ public class Municipality {
   @Column(nullable = false)
   private String name;
 
-  @ManyToMany
-  private List<User> users = new ArrayList<>();
-
-  @ManyToMany
-  private List<Post> posts = new ArrayList<>();
-
   public Municipality(Long code, String name) {
     this.code = code;
     this.name = name;
-  }
-
-  public void addUser(User user) {
-    users.add(user);
-  }
-
-  public void addPost(Post post) {
-    posts.add(post);
   }
 }

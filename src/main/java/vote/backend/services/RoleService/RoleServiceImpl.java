@@ -3,6 +3,7 @@ package vote.backend.services.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vote.backend.entities.User.Role.ERoles;
 import vote.backend.entities.User.Role.Role;
 import vote.backend.repositories.RoleRepository;
 
@@ -35,7 +36,10 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   public Role findRoleByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+    return roleRepository
+      .findByName(ERoles.valueOf(name))
+      .orElseThrow(
+        () -> new RuntimeException(type + " with name: " + name + "not found")
+      );
   }
 }

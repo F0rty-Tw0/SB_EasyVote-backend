@@ -16,7 +16,7 @@ public interface MunicipalityService {
 
   public void updateMunicipalityById(Long id, Municipality municipality);
 
-  public void addUserToMunicipality(User user, Municipality municipality);
+  public void addUserToMunicipality(User user);
 
   public void addPostToMunicipality(Post posts, Municipality municipality);
 

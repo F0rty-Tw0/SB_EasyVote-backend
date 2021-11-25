@@ -1,22 +1,15 @@
 package vote.backend.entities.Party;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vote.backend.entities.User.Candidate.Candidate;
 
 @Getter
 @Setter
@@ -41,12 +34,5 @@ public class Party {
   public Party(String name, String abbreviation) {
     this.name = name;
     this.abbreviation = abbreviation;
-  }
-
-  @ManyToMany
-  private List<Candidate> candidates = new ArrayList<>();
-
-  public void addCandidate(Candidate candidate) {
-    candidates.add(candidate);
   }
 }
