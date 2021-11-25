@@ -38,14 +38,13 @@ public class VoteRecord {
   @OneToOne
   private Candidate candidate;
 
-  private Long voteCount;
+  private int voteCount;
 
   @Column(unique = true)
   private LocalDate debateDate;
 
-  public VoteRecord(Candidate candidate, Long voteCount, LocalDate debateDate) {
+  public VoteRecord(Candidate candidate, LocalDate debateDate) {
     this.candidate = candidate;
-    this.voteCount = voteCount;
     this.debateDate = debateDate;
   }
 }
