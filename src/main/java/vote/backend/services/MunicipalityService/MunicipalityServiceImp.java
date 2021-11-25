@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
-import vote.backend.errorHandler.ResourceNotFoundException;
+import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.MunicipalityRepository;
 
 @Service

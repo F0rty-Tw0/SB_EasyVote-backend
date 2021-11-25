@@ -1,4 +1,4 @@
-package vote.backend.errorHandler;
+package vote.backend.ErrorHandler.Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -1,8 +1,11 @@
 package vote.backend.services.PartyService;
 
+import java.lang.module.ResolutionException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vote.backend.ErrorHandler.ErrorResponseCreator;
+import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.Party.Party;
 import vote.backend.repositories.PartyRepository;
 
@@ -11,6 +14,8 @@ public class PartyServiceImpl implements PartyService {
 
   @Autowired
   private PartyRepository partyRepository;
+
+  private String object = "Party";
 
   @Override
   public List<Party> findAllParties() {
@@ -22,7 +27,9 @@ public class PartyServiceImpl implements PartyService {
     return partyRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Party with the id " + id + "not found")
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id.toString())
+        )
       );
   }
 
@@ -31,7 +38,9 @@ public class PartyServiceImpl implements PartyService {
     return partyRepository
       .findByName(name)
       .orElseThrow(
-        () -> new RuntimeException("Party with the name " + name + "not found")
+              () -> new ResourceNotFoundException(
+                      ErrorResponseCreator.NotFoundException(object, "name", name)
+              )
       );
   }
 
