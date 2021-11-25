@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.Party.Party;
+import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.repositories.PartyRepository;
 
 @Service
@@ -43,5 +44,11 @@ public class PartyServiceImpl implements PartyService {
   @Override
   public void deletePartyById(Long id) {
     partyRepository.deleteById(id);
+  }
+
+  @Override
+  public void addCandidateToParty(Party party, Candidate candidate) {
+    party.addCandidate(candidate);
+    partyRepository.save(party);
   }
 }
