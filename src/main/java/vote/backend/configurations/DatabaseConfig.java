@@ -115,9 +115,7 @@ public class DatabaseConfig implements CommandLineRunner {
       partyService.addParty(new Party("Nye Borgerlige", "D"));
       partyService.addParty(new Party("Socialistisk Folkeparti", "SF"));
       partyService.addParty(new Party("Veganerpartiet", "G"));
-      partyService.addParty(
-        new Party("Frie Grønne, Danmarks Nye Venstrefløjsparti", "Q")
-      );
+      partyService.addParty(new Party("Frie Grønne, Danmarks Nye Venstrefløjsparti", "Q"));
       partyService.addParty(new Party("Kristendemokraterne", "K"));
       partyService.addParty(new Party("Dansk Folkeparti", "O"));
       partyService.addParty(new Party("Venstre, Danmarks Liberale Parti", "V"));
