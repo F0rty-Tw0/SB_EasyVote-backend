@@ -1,8 +1,11 @@
 package vote.backend.entities.Post;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -11,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vote.backend.entities.Post.Comment.Comment;
+import vote.backend.entities.User.User;
 
 @Getter
 @Setter
@@ -28,4 +32,14 @@ public class Post extends Comment {
     inverseJoinColumns = @JoinColumn(name = "comment_id")
   )
   private List<Comment> comments = new ArrayList<>();
+
+  public Post(User author, String title) {
+    super(author);
+    this.title = title;
+  }
+
+  public void addComment(Comment comment) {
+    comment.setPost(this);
+    comments.add(comment);
+  }
 }
