@@ -12,4 +12,8 @@ public interface FriendshipService {
   public Friendship findFriendshipsByUser2(Long id);
 
   public Friendship findFriendShipByUser1AndUser2(Long id1, Long id2);
+
+  public void addFriendship(Friendship friendship);
 }
+
+
