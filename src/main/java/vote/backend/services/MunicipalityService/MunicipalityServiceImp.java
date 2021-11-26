@@ -102,13 +102,15 @@ public class MunicipalityServiceImp implements MunicipalityService {
 
   @Override
   public void addPostToMunicipality(Post post, Municipality municipality) {
-    municipality.addPost(post);
     municipalityRepository.save(municipality);
   }
 
   @Override
-  public void addUserToMunicipality(User user, Municipality municipality) {
-    municipality.addUser(user);
+  public void addUserToMunicipality(User user) {
+    Municipality municipality = findMunicipalityByZipCode(
+      Long.parseLong(user.getZip())
+    );
+
     municipalityRepository.save(municipality);
   }
 

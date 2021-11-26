@@ -73,6 +73,7 @@ public class DatabaseConfig implements CommandLineRunner {
     createRoles();
     createMunicipalities();
     createParties();
+    updateUser();
     createCandidates();
     createVoteRecords();
     createPosts();
@@ -134,37 +135,28 @@ public class DatabaseConfig implements CommandLineRunner {
     }
   }
 
-  private void updateUser(User user) {
+  private void updateUser() {
+    User user = getLoggedUser();
     user.setName("Artiom Tofan");
     user.setPhoneNumber(60902086L);
     user.setCpr(2727272727L);
     user.setAddress("Saxogade 25, 1 TH");
     user.setEmail("artm@gmail.com");
     user.setBirthDate(LocalDate.of(1996, 12, 12));
-    user.setZip("1662");
-    // Municipality municipality = municipalityService.findMunicipalityByZipCode(
-    //   Long.parseLong(user.getZip())
-    // );
-    // user.setMunicipality(municipality);
-    // municipalityService.addUserToMunicipality(user, municipality);
-    // userService.updateUser(user.getId(), user);
+    user.setZip("3000");
+    userService.updateUser(user.getId(), user);
   }
 
   private void createCandidates() {
     if (candidateService.findAllCandidates().isEmpty()) {
       User user = getLoggedUser();
-      updateUser(user);
-      userService.convertUserToCandidate(user.getId());
-      Role role = roleService.findRoleById(3L);
+      userService.convertUserToCandidate(user);
       Party party = partyService.findPartyByName("Veganerpartiet");
       candidateService.updateCandidatePartyById(user.getId(), party);
-      candidateService.updateCandidateRoleById(user.getId(), role);
       candidateService.updateCandidateSloganById(
         user.getId(),
         "Veganerpartiet er en kandidat til venstre"
       );
-      // Candidate candidate = candidateService.findCandidateById(user.getId());
-      // partyService.addCandidateToParty(party, candidate);
     }
   }
 
@@ -173,7 +165,7 @@ public class DatabaseConfig implements CommandLineRunner {
       Candidate candidate = candidateService.findCandidateById(1L);
 
       voteRecordService.addVoteRecord(
-        new VoteRecord(candidate, 1L, LocalDate.of(2015, 02, 20))
+        new VoteRecord(candidate, LocalDate.of(2021, 11, 20))
       );
     }
   }
@@ -186,14 +178,13 @@ public class DatabaseConfig implements CommandLineRunner {
       postService.addPost(new Post(user, "Post 3"));
       postService.addPost(new Post(user, "Post 4"));
       postService.addPost(new Post(user, "Post 5"));
-
-      // List<Post> posts = postService.findPostsByAuthorZipCode(user.getZip());
-      // for (Post post : posts) {
-      //   Municipality municipality = municipalityService.findMunicipalityByZipCode(
-      //     Long.parseLong(user.getZip())
-      //   );
-      //   municipalityService.addPostToMunicipality(post, municipality);
-      // }
+      List<Post> posts = postService.findPostsByAuthorZipCode(user.getZip());
+      for (Post post : posts) {
+        Municipality municipality = municipalityService.findMunicipalityByZipCode(
+          Long.parseLong(user.getZip())
+        );
+        municipalityService.addPostToMunicipality(post, municipality);
+      }
     }
   }
 
