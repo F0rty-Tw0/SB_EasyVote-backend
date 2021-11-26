@@ -3,6 +3,9 @@ package vote.backend.services.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import vote.backend.ErrorHandler.ErrorResponseCreator;
+import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.User.Role.ERoles;
 import vote.backend.entities.User.Role.Role;
 import vote.backend.repositories.RoleRepository;
@@ -13,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
   @Autowired
   private RoleRepository roleRepository;
 
-  private String type = "Role";
+  private String object = "Role";
 
   @Override
   public List<Role> findAllRoles() {
@@ -25,7 +28,9 @@ public class RoleServiceImpl implements RoleService {
     return roleRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException(type + " with id: " + id + "not found")
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id)
+        )
       );
   }
 
@@ -39,7 +44,9 @@ public class RoleServiceImpl implements RoleService {
     return roleRepository
       .findByName(ERoles.valueOf(name))
       .orElseThrow(
-        () -> new RuntimeException(type + " with name: " + name + "not found")
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "name", name)
+        )
       );
   }
 }

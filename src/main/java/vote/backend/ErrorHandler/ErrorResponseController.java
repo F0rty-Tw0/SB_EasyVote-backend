@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import vote.backend.ErrorHandler.ErrorResponse;
-
 import javax.el.MethodNotFoundException;
 import java.time.LocalDateTime;
 
@@ -35,7 +33,7 @@ public class ErrorResponseController {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         String message = error.getMessage();
 
-        return new ResponseEntity<ErrorResponse>(
+        return new ResponseEntity<>(
                 createErrorResponse(message, httpStatus, webRequest), httpStatus
         );
     }
@@ -46,7 +44,7 @@ public class ErrorResponseController {
     HttpStatus httpStatus = HttpStatus.NOT_FOUND;
     String message = error.getMessage();
 
-        return new ResponseEntity<ErrorResponse>(
+        return new ResponseEntity<>(
                 createErrorResponse(message, httpStatus, webRequest), httpStatus
         );
     }
@@ -58,7 +56,7 @@ public class ErrorResponseController {
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
         String message = error.getMessage();
 
-        return new ResponseEntity<ErrorResponse>(
+        return new ResponseEntity<>(
                 createErrorResponse(message, httpStatus, request), httpStatus
         );
     }
@@ -71,7 +69,7 @@ public class ErrorResponseController {
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         String message= error.getMessage();
 
-        return new ResponseEntity<ErrorResponse>(
+        return new ResponseEntity<>(
                 createErrorResponse(message, httpStatus, request), httpStatus
         );
     }

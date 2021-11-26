@@ -32,9 +32,9 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     return voteRecordRepository
       .findById(id)
       .orElseThrow(
-              () -> new ResourceNotFoundException(
-                      ErrorResponseCreator.NotFoundException(object, "id", id.toString())
-              )
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id)
+        )
       );
   }
 
@@ -43,9 +43,9 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     return voteRecordRepository
       .findByCandidateId(id)
       .orElseThrow(
-              () -> new ResourceNotFoundException(
-                      ErrorResponseCreator.NotFoundException(object, "id", id.toString())
-              )
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id)
+        )
       );
   }
 
@@ -54,9 +54,9 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     VoteRecord VTC = voteRecordRepository
       .findByCandidateId(id)
       .orElseThrow(
-              () -> new ResourceNotFoundException(
-                      ErrorResponseCreator.NotFoundException(object, "candidate id", id)
-              )
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id)
+        )
       );
 
     int newCount = VTC.getVoteCount() + 1;
@@ -78,9 +78,9 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     VoteRecord oldRecord = voteRecordRepository
       .findById(id)
       .orElseThrow(
-              () -> new ResourceNotFoundException(
-                      ErrorResponseCreator.NotFoundException(object, "candidate id", id.toString())
-              )
+        () -> new ResourceNotFoundException(
+          ErrorResponseCreator.NotFoundException(object, "id", id)
+        )
       );
     oldRecord.setVoteCount(voteRecord.getVoteCount());
     oldRecord.setCandidate(voteRecord.getCandidate());
