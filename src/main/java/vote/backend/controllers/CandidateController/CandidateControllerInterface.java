@@ -22,7 +22,9 @@ public interface CandidateControllerInterface {
     notes = "Execute to retrieve all <b>Candidates</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public List<Candidate> findAllCandidates();
 
   @ApiOperation(
@@ -31,6 +33,8 @@ public interface CandidateControllerInterface {
     notes = "Enter the <b>id</b> of a Candidate to retrieve a <b>Candidate</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public Object findCandidateById(@PathVariable Long id);
 }

@@ -23,7 +23,9 @@ public interface VoteRecordControllerInterface {
     notes = "Execute to retrieve all <b>Vote records</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public List<VoteRecord> findAllVoteRecords();
 
   @ApiOperation(
@@ -32,7 +34,9 @@ public interface VoteRecordControllerInterface {
     notes = "Enter the <b>id</b> of a Vote record to retrieve a <b>VoteRecord</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public VoteRecord findVoteRecordById(@PathVariable Long id);
 
   @ApiOperation(
@@ -41,7 +45,9 @@ public interface VoteRecordControllerInterface {
     notes = "Enter the <b>date</b> of a Vote record to retrieve a <b>VoteRecord</b> Object."
   )
   @GetMapping("/{date}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public VoteRecord findVoteRecordByDebateDate(@PathVariable LocalDate date);
 
   @ApiOperation(
@@ -50,6 +56,8 @@ public interface VoteRecordControllerInterface {
     notes = "Enter the <b>id</b> of a candidate to increment a <b>VoteRecord</b> Object."
   )
   @GetMapping("/vote-count/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public void incrementVoteCountByCandidateId(@PathVariable Long id);
 }
