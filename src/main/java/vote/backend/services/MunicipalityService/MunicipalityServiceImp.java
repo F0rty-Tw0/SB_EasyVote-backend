@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.Municipality.Municipality;
 import vote.backend.entities.Post.Post;
 import vote.backend.entities.User.User;
-import vote.backend.errorHandler.ResourceNotFoundException;
 import vote.backend.repositories.MunicipalityRepository;
 
 @Service

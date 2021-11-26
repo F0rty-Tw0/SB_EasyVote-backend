@@ -55,7 +55,7 @@ public class VoteRecordServiceImpl implements VoteRecordService {
       .findByCandidateId(id)
       .orElseThrow(
               () -> new ResourceNotFoundException(
-                      ErrorResponseCreator.NotFoundException(object, "candidate id", id.toString())
+                      ErrorResponseCreator.NotFoundException(object, "candidate id", id)
               )
       );
 

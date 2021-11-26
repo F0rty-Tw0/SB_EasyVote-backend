@@ -29,7 +29,7 @@ public class PartyServiceImpl implements PartyService {
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id.toString())
+          ErrorResponseCreator.NotFoundException(object, "id", id)
         )
       );
   }

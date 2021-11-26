@@ -51,7 +51,7 @@ public class ErrorResponseController {
         );
     }
 
-    //401 unauthorized
+    //401 & 409 unauthorized
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> errorUnauthorize(DataIntegrityViolationException error, WebRequest request){
@@ -63,16 +63,7 @@ public class ErrorResponseController {
         );
     }
 
-    //409 conflict
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> errorConflict(DataIntegrityViolationException error, WebRequest request){
-        HttpStatus httpStatus = HttpStatus.CONFLICT;
-        String message = error.getMessage();
 
-        return new ResponseEntity<ErrorResponse>(
-                createErrorResponse(message, httpStatus, request), httpStatus
-        );
-    }
 
     //500 InternalServer Error
     @ExceptionHandler(Exception.class)
