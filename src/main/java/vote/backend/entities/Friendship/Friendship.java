@@ -13,13 +13,16 @@ import javax.persistence.Id;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import javax.persistence.UniqueConstraint;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "friendships", schema = "easyvote")
+@Table(name = "friendships", schema = "easyvote", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"user1_id", "user2_id"})
+})
 public class Friendship {
 
   @Id
@@ -33,7 +36,13 @@ public class Friendship {
   @ManyToOne
   private User user2;
 
-  @Column(unique = true)
-  private Timestamp dateEstablished;
+  @Column()
+  private LocalDate dateEstablished;
+
+  public Friendship(User user1, User user2, LocalDate dateEstablished) {
+    this.user1 = user1;
+    this.user2 = user2;
+    this.dateEstablished = dateEstablished;
+  }
 
 }
