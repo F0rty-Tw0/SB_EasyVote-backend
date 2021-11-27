@@ -18,11 +18,6 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public void addPost(Post post) {
-    postRepository.save(post);
-  }
-
-  @Override
   public Post findPostByTitle(String title) {
     return postRepository
       .findByTitle(title)
@@ -32,5 +27,28 @@ public class PostServiceImpl implements PostService {
   @Override
   public List<Post> findPostsByAuthorZipCode(String zipCode) {
     return postRepository.findByAuthorZip(zipCode);
+  }
+
+  @Override
+  public void addPost(Post post) {
+    postRepository.save(post);
+  }
+
+  @Override
+  public void updatePostById(Post post, Long id) {
+    Post postToUpdate = postRepository
+      .findById(id)
+      .orElseThrow(() -> new RuntimeException("Post not found"));
+    postToUpdate.setTitle(post.getTitle());
+    postToUpdate.setText(post.getText());
+    postRepository.save(postToUpdate);
+  }
+
+  @Override
+  public void deletePostById(Post post, Long id) {
+    Post postToDelete = postRepository
+      .findById(id)
+      .orElseThrow(() -> new RuntimeException("Post not found"));
+    postRepository.delete(postToDelete);
   }
 }

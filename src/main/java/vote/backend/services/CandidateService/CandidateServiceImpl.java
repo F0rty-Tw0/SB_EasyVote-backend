@@ -44,24 +44,24 @@ public class CandidateServiceImpl implements CandidateService {
 
   @Override
   public void updateCandidateRoleById(Long id, Role role) {
-    Candidate candidate = candidateRepository
+    Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
         () -> new RuntimeException("Candidate with id" + id + "not found")
       );
-    candidate.setRole(role);
-    candidateRepository.save(candidate);
+    candidateToUpdate.setRole(role);
+    candidateRepository.save(candidateToUpdate);
   }
 
   @Override
   public void updateCandidateSloganById(Long id, String string) {
-    Candidate candidate = candidateRepository
+    Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
         () -> new RuntimeException("Candidate with id" + id + "not found")
       );
-    candidate.setSlogan(string);
-    candidateRepository.save(candidate);
+    candidateToUpdate.setSlogan(string);
+    candidateRepository.save(candidateToUpdate);
   }
 
   @Override

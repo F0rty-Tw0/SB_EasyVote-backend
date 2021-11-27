@@ -68,7 +68,7 @@ public class VoteRecordServiceImpl implements VoteRecordService {
 
   @Override
   public void updateVoteRecord(VoteRecord voteRecord, Long id) {
-    VoteRecord oldRecord = voteRecordRepository
+    VoteRecord voteRecordToUpdate = voteRecordRepository
       .findById(id)
       .orElseThrow(
         () ->
@@ -76,9 +76,9 @@ public class VoteRecordServiceImpl implements VoteRecordService {
             "Vote record with the candidate id" + id + "not found"
           )
       );
-    oldRecord.setVoteCount(voteRecord.getVoteCount());
-    oldRecord.setCandidate(voteRecord.getCandidate());
-    oldRecord.setDebateDate(voteRecord.getDebateDate());
-    voteRecordRepository.save(oldRecord);
+    voteRecordToUpdate.setVoteCount(voteRecord.getVoteCount());
+    voteRecordToUpdate.setCandidate(voteRecord.getCandidate());
+    voteRecordToUpdate.setDebateDate(voteRecord.getDebateDate());
+    voteRecordRepository.save(voteRecordToUpdate);
   }
 }

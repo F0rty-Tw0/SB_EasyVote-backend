@@ -88,7 +88,7 @@ public class MunicipalityServiceImp implements MunicipalityService {
 
   @Override
   public void updateMunicipalityById(Long id, Municipality municipality) {
-    Municipality foundMunicipality = municipalityRepository
+    Municipality municipalityToUpdate = municipalityRepository
       .findById(id)
       .orElseThrow(
         () ->
@@ -96,8 +96,9 @@ public class MunicipalityServiceImp implements MunicipalityService {
             "Municipality whit this municipalityCode not found " + id
           )
       );
-
-    municipalityRepository.save(foundMunicipality);
+    municipalityToUpdate.setName(municipality.getName());
+    municipalityToUpdate.setCode(municipality.getCode());
+    municipalityRepository.save(municipalityToUpdate);
   }
 
   @Override

@@ -57,26 +57,26 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updateUser(Long id, User user) {
-    User foundUser = userRepository
+    User userToUpdate = userRepository
       .findById(id)
       .orElseThrow(
         () -> new RuntimeException(type + " with id: " + id + " not found")
       );
-    foundUser.setName(user.getName());
-    foundUser.setCpr(user.getCpr());
-    foundUser.setEmail(user.getEmail());
-    foundUser.setPhoneNumber(user.getPhoneNumber());
-    foundUser.setAddress(user.getAddress());
-    foundUser.setBirthDate(user.getBirthDate());
+    userToUpdate.setName(user.getName());
+    userToUpdate.setCpr(user.getCpr());
+    userToUpdate.setEmail(user.getEmail());
+    userToUpdate.setPhoneNumber(user.getPhoneNumber());
+    userToUpdate.setAddress(user.getAddress());
+    userToUpdate.setBirthDate(user.getBirthDate());
     if (user.getZip() != null) {
-      foundUser.setZip(user.getZip());
-      foundUser.setMunicipality(
+      userToUpdate.setZip(user.getZip());
+      userToUpdate.setMunicipality(
         municipalityService.findMunicipalityByZipCode(
           Long.parseLong(user.getZip())
         )
       );
     }
-    userRepository.save(foundUser);
+    userRepository.save(userToUpdate);
   }
 
   @Override
