@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 import vote.backend.security.AuthenticationPayload.Response.MessageResponse;
 
 @Api(
-  tags = "Authentication - (REQUIRED)",
+  tags = "Authentication",
   description = "- An endpoint for <b>Login</b> and <b>SignUp</b>"
 )
 @RequestMapping("/api/auth")
@@ -32,6 +33,7 @@ public interface AuthControllerInterface {
     notes = "In order to create a new <b>User</b>, you need an Email and Password. <em>(<b>Role</b> is optional)</em>."
   )
   @PostMapping("/signup")
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<MessageResponse> registerUser(
     @Valid @RequestBody SignupRequest signUpRequest
   );

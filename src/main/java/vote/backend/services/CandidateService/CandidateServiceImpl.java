@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Role.Role;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.CandidateRepository;
 
 @Service
@@ -13,6 +15,8 @@ public class CandidateServiceImpl implements CandidateService {
 
   @Autowired
   private CandidateRepository candidateRepository;
+
+  String object = "Candidate";
 
   @Override
   public List<Candidate> findAllCandidates() {
@@ -24,7 +28,10 @@ public class CandidateServiceImpl implements CandidateService {
     return candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -36,7 +43,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidate.setParty(party);
     candidateRepository.save(candidate);
@@ -44,24 +54,30 @@ public class CandidateServiceImpl implements CandidateService {
 
   @Override
   public void updateCandidateRoleById(Long id, Role role) {
-    Candidate candidate = candidateRepository
+    Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
-    candidate.setRole(role);
-    candidateRepository.save(candidate);
+    candidateToUpdate.setRole(role);
+    candidateRepository.save(candidateToUpdate);
   }
 
   @Override
   public void updateCandidateSloganById(Long id, String string) {
-    Candidate candidate = candidateRepository
+    Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
-    candidate.setSlogan(string);
-    candidateRepository.save(candidate);
+    candidateToUpdate.setSlogan(string);
+    candidateRepository.save(candidateToUpdate);
   }
 
   @Override

@@ -10,5 +10,9 @@ public interface PostService {
 
   public List<Post> findPostsByAuthorZipCode(String zipCode);
 
+  public void updatePostById(Post post, Long id);
+
   public void addPost(Post post);
+
+  public void deletePostById(Post post, Long id);
 }

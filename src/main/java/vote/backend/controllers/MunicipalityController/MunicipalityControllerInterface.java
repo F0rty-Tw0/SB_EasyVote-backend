@@ -12,7 +12,7 @@ import vote.backend.entities.Municipality.Municipality;
 
 @Api(
   tags = "Municipalities",
-  description = "- (OPTIONAL) A secured endpoint for <b>Municipalities</b> requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! -  <em> (This endpoint was created for the testing and learning purposes only)</em>"
+  description = "- A secured endpoint for <b>Municipalities</b> requires a role of <b>ADMIN, MODERATOR, CANDIDATE, VOTER</b> to operate!"
 )
 @RequestMapping("/api/municipalities")
 public interface MunicipalityControllerInterface {
@@ -23,7 +23,7 @@ public interface MunicipalityControllerInterface {
   )
   @GetMapping
   @PreAuthorize(
-    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public List<Municipality> findAllMunicipalities();
 
@@ -34,7 +34,7 @@ public interface MunicipalityControllerInterface {
   )
   @GetMapping("/{id}")
   @PreAuthorize(
-    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public Municipality findMunicipalityById(@PathVariable Long id);
 
@@ -45,7 +45,7 @@ public interface MunicipalityControllerInterface {
   )
   @GetMapping("/code/{code}")
   @PreAuthorize(
-    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public Municipality findMunicipalityByMunicipalityCode(
     @PathVariable Long code
@@ -58,7 +58,7 @@ public interface MunicipalityControllerInterface {
   )
   @GetMapping("/zip/{zipCode}")
   @PreAuthorize(
-    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public Municipality findMunicipalityByMunicipalityZipCode(
     @PathVariable Long zipCode

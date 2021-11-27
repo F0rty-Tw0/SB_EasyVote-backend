@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -115,10 +114,10 @@ public class DatabaseConfig implements CommandLineRunner {
       for (int i = 0; i < jsonArray.length(); i++) {
         JSONObject jsonObject = jsonArray.getJSONObject(i);
         municipalityService.addMunicipality(
-                new Municipality(
-                        jsonObject.getLong("kode"),
-                        jsonObject.getString("navn")
-                )
+          new Municipality(
+            jsonObject.getLong("kode"),
+            jsonObject.getString("navn")
+          )
         );
       }
     }
@@ -134,7 +133,7 @@ public class DatabaseConfig implements CommandLineRunner {
       partyService.addParty(new Party("Socialistisk Folkeparti", "SF"));
       partyService.addParty(new Party("Veganerpartiet", "G"));
       partyService.addParty(
-              new Party("Frie Grønne, Danmarks Nye Venstrefløjsparti", "Q")
+        new Party("Frie Grønne, Danmarks Nye Venstrefløjsparti", "Q")
       );
       partyService.addParty(new Party("Kristendemokraterne", "K"));
       partyService.addParty(new Party("Dansk Folkeparti", "O"));
@@ -162,8 +161,8 @@ public class DatabaseConfig implements CommandLineRunner {
       Party party = partyService.findPartyByName("Veganerpartiet");
       candidateService.updateCandidatePartyById(user.getId(), party);
       candidateService.updateCandidateSloganById(
-              user.getId(),
-              "Veganerpartiet er en kandidat til venstre"
+        user.getId(),
+        "Veganerpartiet er en kandidat til venstre"
       );
     }
   }
@@ -173,7 +172,7 @@ public class DatabaseConfig implements CommandLineRunner {
       Candidate candidate = candidateService.findCandidateById(1L);
 
       voteRecordService.addVoteRecord(
-              new VoteRecord(candidate, LocalDate.of(2021, 11, 20))
+        new VoteRecord(candidate, LocalDate.of(2021, 11, 20))
       );
     }
   }
@@ -189,7 +188,7 @@ public class DatabaseConfig implements CommandLineRunner {
       List<Post> posts = postService.findPostsByAuthorZipCode(user.getZip());
       for (Post post : posts) {
         Municipality municipality = municipalityService.findMunicipalityByZipCode(
-                Long.parseLong(user.getZip())
+          Long.parseLong(user.getZip())
         );
         municipalityService.addPostToMunicipality(post, municipality);
       }
@@ -206,7 +205,7 @@ public class DatabaseConfig implements CommandLineRunner {
   private User getLoggedUser() {
     LoginRequest loginRequest = new LoginRequest("admin", "test");
     ResponseEntity<JwtResponse> authentication = authService.authenticateUser(
-            loginRequest
+      loginRequest
     );
 
     Long nemId = authentication.getBody().getId();
@@ -221,7 +220,8 @@ public class DatabaseConfig implements CommandLineRunner {
       // I wasn't sure, since getLoggedUser() only gets 1 user from the loginRequest
       LoginRequest loginRequest2 = new LoginRequest("admin2", "test2");
       ResponseEntity<JwtResponse> authentication2 = authService.authenticateUser(
-              loginRequest2);
+        loginRequest2
+      );
       Long nemId2 = authentication2.getBody().getId();
       User user2 = userService.findUserByNemId(nemId2);
       user2.setName("Nikolai TheGreatest");
@@ -234,8 +234,10 @@ public class DatabaseConfig implements CommandLineRunner {
       userService.updateUser(user2.getId(), user2);
 
       // TO DO > Avoid duplicates
-//      if (friendshipService.ifFriendshipExists(user1.getId(), user2.getId()) == false) {
-        friendshipService.addFriendship(new Friendship(user1, user2, LocalDate.of(2021, 11, 20)));
-      }
+      //      if (friendshipService.ifFriendshipExists(user1.getId(), user2.getId()) == false) {
+      friendshipService.addFriendship(
+        new Friendship(user1, user2, LocalDate.of(2021, 11, 20))
+      );
     }
   }
+}

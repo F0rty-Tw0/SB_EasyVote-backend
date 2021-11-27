@@ -12,7 +12,7 @@ import vote.backend.entities.Party.Party;
 
 @Api(
   tags = "Party",
-  description = "- (OPTIONAL) A secured endpoint for <b>Parties</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
+  description = "- A secured endpoint for <b>Parties</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate!"
 )
 @RequestMapping("/api/parties")
 public interface PartyControllerInterface {
@@ -21,9 +21,7 @@ public interface PartyControllerInterface {
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Execute to retrieve all <b>Parties</b>."
   )
-  @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
-  )
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping
   public List<Party> findAllParties();
 
@@ -33,8 +31,6 @@ public interface PartyControllerInterface {
     notes = "Enter the <b>id</b> of a Party to retrieve a <b>Party</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
-  )
+  @PreAuthorize("hasRole('ADMIN')")
   public Party findPartyById(@PathVariable Long id);
 }

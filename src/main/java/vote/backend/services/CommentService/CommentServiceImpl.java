@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.Post.Comment.Comment;
 import vote.backend.repositories.CommentRepository;
-import vote.backend.services.PostService.PostService;
-import vote.backend.services.UserService.UserService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -13,16 +11,28 @@ public class CommentServiceImpl implements CommentService {
   @Autowired
   private CommentRepository commentRepository;
 
-  @Autowired
-  private PostService postService;
+  @Override
+  public void updateCommentById(Comment comment, Long id) {
+    Comment commentToUpdate = commentRepository
+      .findById(id)
+      .orElseThrow(() -> new RuntimeException("Comment not found"));
 
-  @Autowired
-  private UserService userService;
+    commentToUpdate.setText(comment.getText());
+    commentToUpdate.setDateEdited(comment.getDateEdited());
+    commentRepository.save(commentToUpdate);
+  }
 
   @Override
   public void addComment(Comment comment) {
     commentRepository.save(comment);
-    // postService.addCommentToPost(comment.getPost(), comment);
-    // userService.addCommentToUser(comment.getAuthor(), comment);
+  }
+
+  @Override
+  public void deleteCommentById(Comment comment, Long id) {
+    Comment commentToDelete = commentRepository
+      .findById(id)
+      .orElseThrow(() -> new RuntimeException("Comment not found"));
+
+    commentRepository.delete(commentToDelete);
   }
 }

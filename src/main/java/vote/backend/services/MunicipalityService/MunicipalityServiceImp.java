@@ -10,7 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import vote.backend.entities.Municipality.Municipality;
 import vote.backend.entities.Post.Post;
 import vote.backend.entities.User.User;
-import vote.backend.errorHandler.ResourceNotFoundException;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.MunicipalityRepository;
 
 @Service
@@ -18,6 +19,8 @@ public class MunicipalityServiceImp implements MunicipalityService {
 
   @Autowired
   MunicipalityRepository municipalityRepository;
+
+  String object = "Municipality";
 
   @Override
   public List<Municipality> findAllMunicipalities() {
@@ -31,7 +34,7 @@ public class MunicipalityServiceImp implements MunicipalityService {
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
-            "Municipality with this id not found " + id
+            ErrorResponseCreator.notFoundException(object, "id", id)
           )
       );
   }
@@ -43,7 +46,7 @@ public class MunicipalityServiceImp implements MunicipalityService {
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
-            "Municipality whit this municipalityCode not found " + code
+            ErrorResponseCreator.notFoundException(object, "code", code)
           )
       );
   }
@@ -81,23 +84,24 @@ public class MunicipalityServiceImp implements MunicipalityService {
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
-            "Municipality whit this municipalityCode not found " + code
+            ErrorResponseCreator.notFoundException(object, "code", code)
           )
       );
   }
 
   @Override
   public void updateMunicipalityById(Long id, Municipality municipality) {
-    Municipality foundMunicipality = municipalityRepository
+    Municipality municipalityToUpdate = municipalityRepository
       .findById(id)
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
-            "Municipality whit this municipalityCode not found " + id
+            ErrorResponseCreator.notFoundException(object, "id", id)
           )
       );
-
-    municipalityRepository.save(foundMunicipality);
+    municipalityToUpdate.setName(municipality.getName());
+    municipalityToUpdate.setCode(municipality.getCode());
+    municipalityRepository.save(municipalityToUpdate);
   }
 
   @Override
