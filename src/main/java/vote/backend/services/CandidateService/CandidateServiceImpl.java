@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Role.Role;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.CandidateRepository;
 
 @Service
@@ -13,6 +15,8 @@ public class CandidateServiceImpl implements CandidateService {
 
   @Autowired
   private CandidateRepository candidateRepository;
+
+  String object = "Candidate";
 
   @Override
   public List<Candidate> findAllCandidates() {
@@ -24,7 +28,10 @@ public class CandidateServiceImpl implements CandidateService {
     return candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -36,7 +43,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidate.setParty(party);
     candidateRepository.save(candidate);
@@ -47,7 +57,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidateToUpdate.setRole(role);
     candidateRepository.save(candidateToUpdate);
@@ -58,7 +71,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidateToUpdate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException("Candidate with id" + id + "not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidateToUpdate.setSlogan(string);
     candidateRepository.save(candidateToUpdate);

@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.Post.Post;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.PostRepository;
 
 @Service
@@ -11,6 +13,8 @@ public class PostServiceImpl implements PostService {
 
   @Autowired
   private PostRepository postRepository;
+
+  String object = "Post";
 
   @Override
   public List<Post> findAllPosts() {
@@ -21,7 +25,12 @@ public class PostServiceImpl implements PostService {
   public Post findPostByTitle(String title) {
     return postRepository
       .findByTitle(title)
-      .orElseThrow(() -> new RuntimeException("Post not found"));
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "title", title)
+          )
+      );
   }
 
   @Override
