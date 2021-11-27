@@ -22,7 +22,9 @@ public interface CandidateControllerInterface {
     notes = "Execute to retrieve all <b>Candidates</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize(
+    "hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')"
+    )
   public List<Candidate> findAllCandidates();
 
   @ApiOperation(

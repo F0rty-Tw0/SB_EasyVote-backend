@@ -4,9 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.User.Role.Role;
-import vote.backend.ErrorHandler.ErrorResponseCreator;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.User.User;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.UserRepository;
 import vote.backend.services.MunicipalityService.MunicipalityService;
 import vote.backend.services.RoleService.RoleService;
@@ -35,9 +35,10 @@ public class UserServiceImpl implements UserService {
     return userRepository
       .findByEmail(email)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "email", email)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "email", email)
+          )
       );
   }
 
@@ -46,9 +47,10 @@ public class UserServiceImpl implements UserService {
     return userRepository
       .findByNemId(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "nemId", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "nemId", id)
+          )
       );
   }
 
@@ -65,9 +67,10 @@ public class UserServiceImpl implements UserService {
     User foundUser = userRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     foundUser.setName(user.getName());
     foundUser.setCpr(user.getCpr());

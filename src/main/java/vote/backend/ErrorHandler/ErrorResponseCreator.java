@@ -1,8 +1,18 @@
-package vote.backend.ErrorHandler;
+package vote.backend.errorHandler;
 
 public class ErrorResponseCreator {
 
-    public static <T> String NotFoundException(String object, String type, T value){
-        return (object+ " with the " +type+ ": "+ value+ " could not be found");
-    }
+  private ErrorResponseCreator() {
+    throw new IllegalStateException("Utility class");
+  }
+
+  public static <T> String notFoundException(
+    String object,
+    String type,
+    T value
+  ) {
+    return (
+      object + " with the " + type + ": " + value + " could not be found"
+    );
+  }
 }

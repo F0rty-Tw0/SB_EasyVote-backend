@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vote.backend.ErrorHandler.ErrorResponseCreator;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.VoteRecord.VoteRecord;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.VoteRecordRepository;
 
 @Service
@@ -32,9 +32,10 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     return voteRecordRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -43,9 +44,10 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     return voteRecordRepository
       .findByCandidateId(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -54,9 +56,10 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     VoteRecord VTC = voteRecordRepository
       .findByCandidateId(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
 
     int newCount = VTC.getVoteCount() + 1;
@@ -78,9 +81,10 @@ public class VoteRecordServiceImpl implements VoteRecordService {
     VoteRecord oldRecord = voteRecordRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     oldRecord.setVoteCount(voteRecord.getVoteCount());
     oldRecord.setCandidate(voteRecord.getCandidate());

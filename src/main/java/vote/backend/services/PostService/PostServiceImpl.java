@@ -3,10 +3,9 @@ package vote.backend.services.PostService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import vote.backend.ErrorHandler.ErrorResponseCreator;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.Post.Post;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.PostRepository;
 
 @Service
@@ -14,7 +13,7 @@ public class PostServiceImpl implements PostService {
 
   @Autowired
   private PostRepository postRepository;
-  
+
   String object = "Post";
 
   @Override
@@ -31,9 +30,11 @@ public class PostServiceImpl implements PostService {
   public Post findPostByTitle(String title) {
     return postRepository
       .findByTitle(title)
-      .orElseThrow( () -> new ResourceNotFoundException(
-        ErrorResponseCreator.NotFoundException(object, "title", title)
-      )
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "title", title)
+          )
       );
   }
 

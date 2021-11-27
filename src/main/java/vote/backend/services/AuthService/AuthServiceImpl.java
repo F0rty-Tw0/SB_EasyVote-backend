@@ -1,7 +1,5 @@
 package vote.backend.services.AuthService;
 
-import javax.management.relation.RoleNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import vote.backend.entities.User.Nem.Nem;
 import vote.backend.entities.User.Role.ERoles;
 import vote.backend.entities.User.Role.Role;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.User.User;
 import vote.backend.repositories.NemRepository;
 import vote.backend.repositories.RoleRepository;
@@ -48,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
   @Autowired
   JwtUtils jwtUtils;
 
-  private String message = " Error: Role is not found.";
+  private String ROLE_NOT_FOUND_MESSAGE = "Error: Role is not found.";
 
   @Override
   public ResponseEntity<MessageResponse> registerNem(
@@ -88,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
     User user = new User();
     Role voterRole = roleRepository
       .findByName(ERoles.ROLE_VOTER)
-      .orElseThrow(() -> new ResourceNotFoundException("Error: Role is not found"));
+      .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
@@ -99,7 +96,7 @@ public class AuthServiceImpl implements AuthService {
 
     Nem nem = nemRepository
       .findById(nemDetails.getId())
-      .orElseThrow(() -> new ResourceNotFoundException("Error: Nem is not found."));
+      .orElseThrow(() -> new RuntimeException("Error: Nem is not found."));
 
     user.setNem(nem);
 

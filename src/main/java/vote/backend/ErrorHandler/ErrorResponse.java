@@ -1,4 +1,4 @@
-package vote.backend.ErrorHandler;
+package vote.backend.errorHandler;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

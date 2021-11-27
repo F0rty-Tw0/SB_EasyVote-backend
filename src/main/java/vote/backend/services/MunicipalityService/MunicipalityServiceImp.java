@@ -7,12 +7,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import vote.backend.ErrorHandler.ErrorResponseCreator;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.entities.Municipality.Municipality;
 import vote.backend.entities.Post.Post;
 import vote.backend.entities.User.User;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.MunicipalityRepository;
 
 @Service
@@ -33,9 +32,10 @@ public class MunicipalityServiceImp implements MunicipalityService {
     return municipalityRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -44,9 +44,10 @@ public class MunicipalityServiceImp implements MunicipalityService {
     return municipalityRepository
       .findByCode(code)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "code", code)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "code", code)
+          )
       );
   }
 
@@ -81,9 +82,10 @@ public class MunicipalityServiceImp implements MunicipalityService {
     return municipalityRepository
       .findByCode(code)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "code", code)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "code", code)
+          )
       );
   }
 
@@ -92,9 +94,10 @@ public class MunicipalityServiceImp implements MunicipalityService {
     Municipality foundMunicipality = municipalityRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
 
     municipalityRepository.save(foundMunicipality);

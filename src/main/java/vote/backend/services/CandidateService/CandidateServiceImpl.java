@@ -3,14 +3,12 @@ package vote.backend.services.CandidateService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.User.Candidate.Candidate;
 import vote.backend.entities.User.Role.Role;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.CandidateRepository;
-import vote.backend.ErrorHandler.ErrorResponseCreator;
-import vote.backend.ErrorHandler.Exceptions.ResourceNotFoundException;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -30,9 +28,10 @@ public class CandidateServiceImpl implements CandidateService {
     return candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
   }
 
@@ -44,9 +43,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidate.setParty(party);
     candidateRepository.save(candidate);
@@ -57,9 +57,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidate.setRole(role);
     candidateRepository.save(candidate);
@@ -70,9 +71,10 @@ public class CandidateServiceImpl implements CandidateService {
     Candidate candidate = candidateRepository
       .findById(id)
       .orElseThrow(
-        () -> new ResourceNotFoundException(
-          ErrorResponseCreator.NotFoundException(object, "id", id)
-        )
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
     candidate.setSlogan(string);
     candidateRepository.save(candidate);
