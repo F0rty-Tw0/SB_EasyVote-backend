@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
-  tags = "Users",
-  description = "- (OPTIONAL) A secured endpoint for <b>Users</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  tags = "Nem",
+  description = "- (OPTIONAL) A secured endpoint for <b>Nem</b>, requires a role of <b>ADMIN</b> to operate!"
 )
-@RequestMapping("/api/users")
+@RequestMapping("/api/nem")
 public interface NemControllerInterface {
   @ApiOperation(
     value = " - Returns the Nem by Username",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Username</b> of a Nem to retrieve an <b>Nem</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Enter the <b>Username</b> of a Nem to retrieve an <b>Nem</b> Object."
   )
   @GetMapping("/username/{username}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize("hasRole('ADMIN')")
   public Object findNemByUsername(String username);
 
   @ApiOperation(
