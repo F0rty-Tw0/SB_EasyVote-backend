@@ -88,7 +88,7 @@ public class ErrorResponseController {
     );
   }
 
-  // 401 forbidden
+  // 401 & 403 forbidden
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ErrorResponse> errorUnauthorize(
     AccessDeniedException error,
