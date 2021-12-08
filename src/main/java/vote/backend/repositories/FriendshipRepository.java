@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface FriendshipRepository extends JpaRepository <Friendship, Long> {
   public Optional<Friendship> findById(Long id);
 
-  public List<Friendship> findByUser1Id(Long id);
+  public List<Friendship> findByEmail1(String email1);
 
-  public Optional<Friendship> findByUser1IdAndUser2Id(Long id1, Long id2);
+  public Optional<Friendship> findByEmail1AndEmail2(String email1, String email2);
 
 }

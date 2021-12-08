@@ -214,7 +214,7 @@ public class DatabaseConfig implements CommandLineRunner {
   }
 
   private void createFriendship() {
-    if (friendshipService.findAllFriendships().isEmpty()) {
+//    if (friendshipService.findAllFriendships().isEmpty()) {
       User user1 = getLoggedUser();
 
       // The reason I am creating a new user here instead of using a method is because
@@ -232,10 +232,14 @@ public class DatabaseConfig implements CommandLineRunner {
       user2.setBirthDate(LocalDate.of(1996, 12, 12));
       user2.setZip("3000");
       userService.updateUser(user2.getId(), user2);
+//      friendshipService.addFriendship(new Friendship(user1.getEmail(), user2.getEmail(), LocalDate.of(2021, 11, 20)));
 
-      // TO DO > Avoid duplicates
-//      if (friendshipService.ifFriendshipExists(user1.getId(), user2.getId()) == false) {
-        friendshipService.addFriendship(new Friendship(user1, user2, LocalDate.of(2021, 11, 20)));
+      // Takes the emails of both users, and checks if a friendship with those emails already exists in the database
+      if (friendshipService.ifFriendshipExists(user1.getEmail(), user2.getEmail()) == false) {
+        friendshipService.addFriendship(new Friendship(user2.getEmail(), user2.getEmail(), LocalDate.of(2021, 11, 20)));
+      } else {
+        System.out.println("Friendship already exists");
       }
-    }
+//    }
   }
+}
