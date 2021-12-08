@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vote.backend.entities.User.Role.Role;
 import vote.backend.entities.User.User;
+import vote.backend.errorHandler.ErrorResponseCreator;
+import vote.backend.errorHandler.Exceptions.ResourceNotFoundException;
 import vote.backend.repositories.UserRepository;
 import vote.backend.services.MunicipalityService.MunicipalityService;
 import vote.backend.services.RoleService.RoleService;
@@ -21,7 +23,7 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private RoleService roleService;
 
-  private String type = "User";
+  private String object = "User";
 
   @Override
   public List<User> findAllUsers() {
@@ -34,7 +36,9 @@ public class UserServiceImpl implements UserService {
       .findByEmail(email)
       .orElseThrow(
         () ->
-          new RuntimeException(type + " with email: " + email + " not found")
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "email", email)
+          )
       );
   }
 
@@ -43,7 +47,10 @@ public class UserServiceImpl implements UserService {
     return userRepository
       .findByNemId(id)
       .orElseThrow(
-        () -> new RuntimeException(type + " with nemId: " + id + " not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "nemId", id)
+          )
       );
   }
 
@@ -57,26 +64,29 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updateUser(Long id, User user) {
-    User foundUser = userRepository
+    User userToUpdate = userRepository
       .findById(id)
       .orElseThrow(
-        () -> new RuntimeException(type + " with id: " + id + " not found")
+        () ->
+          new ResourceNotFoundException(
+            ErrorResponseCreator.notFoundException(object, "id", id)
+          )
       );
-    foundUser.setName(user.getName());
-    foundUser.setCpr(user.getCpr());
-    foundUser.setEmail(user.getEmail());
-    foundUser.setPhoneNumber(user.getPhoneNumber());
-    foundUser.setAddress(user.getAddress());
-    foundUser.setBirthDate(user.getBirthDate());
+    userToUpdate.setName(user.getName());
+    userToUpdate.setCpr(user.getCpr());
+    userToUpdate.setEmail(user.getEmail());
+    userToUpdate.setPhoneNumber(user.getPhoneNumber());
+    userToUpdate.setAddress(user.getAddress());
+    userToUpdate.setBirthDate(user.getBirthDate());
     if (user.getZip() != null) {
-      foundUser.setZip(user.getZip());
-      foundUser.setMunicipality(
+      userToUpdate.setZip(user.getZip());
+      userToUpdate.setMunicipality(
         municipalityService.findMunicipalityByZipCode(
           Long.parseLong(user.getZip())
         )
       );
     }
-    userRepository.save(foundUser);
+    userRepository.save(userToUpdate);
   }
 
   @Override

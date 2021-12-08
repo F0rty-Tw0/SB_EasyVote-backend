@@ -12,7 +12,7 @@ import vote.backend.entities.User.Candidate.Candidate;
 
 @Api(
   tags = "Candidate",
-  description = "- (OPTIONAL) A secured endpoint for <b>Candidates</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
+  description = "- A secured endpoint for <b>Candidates</b>, requires a role of <b>ADMIN, MODERATOR</b> to operate!"
 )
 @RequestMapping("/api/candidates")
 public interface CandidateControllerInterface {
@@ -22,9 +22,7 @@ public interface CandidateControllerInterface {
     notes = "Execute to retrieve all <b>Candidates</b>."
   )
   @GetMapping
-  @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
-  )
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
   public List<Candidate> findAllCandidates();
 
   @ApiOperation(
@@ -33,8 +31,6 @@ public interface CandidateControllerInterface {
     notes = "Enter the <b>id</b> of a Candidate to retrieve a <b>Candidate</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
-  )
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
   public Object findCandidateById(@PathVariable Long id);
 }
