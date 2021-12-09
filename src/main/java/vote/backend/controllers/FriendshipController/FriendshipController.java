@@ -17,4 +17,18 @@ public class FriendshipController implements FriendshipControllerInterface {
   public List<Friendship> findAllFriendships() {
     return friendshipService.findAllFriendships();
   }
+
+  @Override
+  public List<Friendship> findFriendshipsByEmail(String email) {
+    return friendshipService.findFriendshipsByEmail(email);
+  }
+
+  @Override
+  public Object findFriendShipByUser1AndUser2(String email1, String email2) {
+    return friendshipService.findFriendShipByUser1AndUser2(email1, email2);
+  }
+
+  @Override
+  public void addFriendship(Friendship friendship) {
+      friendshipService.addFriendship(friendship); }
 }

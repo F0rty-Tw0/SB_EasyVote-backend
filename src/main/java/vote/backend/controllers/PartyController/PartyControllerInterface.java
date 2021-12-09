@@ -21,7 +21,9 @@ public interface PartyControllerInterface {
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Execute to retrieve all <b>Parties</b>."
   )
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   @GetMapping
   public List<Party> findAllParties();
 
@@ -31,6 +33,8 @@ public interface PartyControllerInterface {
     notes = "Enter the <b>id</b> of a Party to retrieve a <b>Party</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize(
+          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+  )
   public Party findPartyById(@PathVariable Long id);
 }
