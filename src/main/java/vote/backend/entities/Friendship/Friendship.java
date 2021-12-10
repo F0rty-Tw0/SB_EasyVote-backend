@@ -36,6 +36,9 @@ public class Friendship {
   @Column(nullable = false)
   private String email2;
 
+  @Column(columnDefinition = "pending")
+  private String status;
+
   @Column()
   private LocalDate dateEstablished;
 
