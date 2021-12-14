@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +32,7 @@ public class User {
 
   private String name;
 
+  @JsonFormat(pattern = "dd-MM-YYYY")
   private LocalDate birthDate;
 
   private Long phoneNumber;
