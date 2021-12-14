@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import vote.backend.entities.Friendship.Friendship;
 import vote.backend.entities.Municipality.Municipality;
 import vote.backend.entities.Party.Party;
 import vote.backend.entities.Post.Comment.Comment;
@@ -25,6 +26,7 @@ import vote.backend.security.AuthenticationPayload.Response.JwtResponse;
 import vote.backend.services.AuthService.AuthService;
 import vote.backend.services.CandidateService.CandidateService;
 import vote.backend.services.CommentService.CommentService;
+import vote.backend.services.FriendshipService.FriendshipService;
 import vote.backend.services.MunicipalityService.MunicipalityService;
 import vote.backend.services.NemService.NemService;
 import vote.backend.services.PartyService.PartyService;
@@ -67,6 +69,9 @@ public class DatabaseConfig implements CommandLineRunner {
   @Autowired
   private CommentService commentService;
 
+  @Autowired
+  private FriendshipService friendshipService;
+
   @Override
   public void run(String... args) throws Exception {
     createNems();
@@ -78,11 +83,13 @@ public class DatabaseConfig implements CommandLineRunner {
     createVoteRecords();
     createPosts();
     createComments();
+    createFriendship();
   }
 
   private void createNems() {
     if (nemService.findAllNems().isEmpty()) {
       authService.registerNem(new SignupRequest("admin", "test"));
+      authService.registerNem(new SignupRequest("admin2", "test2"));
     }
   }
 
@@ -203,5 +210,33 @@ public class DatabaseConfig implements CommandLineRunner {
 
     Long nemId = authentication.getBody().getId();
     return userService.findUserByNemId(nemId);
+  }
+
+  private void createFriendship() {
+    if (friendshipService.findAllFriendships().isEmpty()) {
+      User user1 = getLoggedUser();
+
+      // The reason I am creating a new user here instead of using a method is because
+      // I wasn't sure, since getLoggedUser() only gets 1 user from the loginRequest
+      LoginRequest loginRequest2 = new LoginRequest("admin2", "test2");
+      ResponseEntity<JwtResponse> authentication2 = authService.authenticateUser(
+        loginRequest2
+      );
+
+      Long nemId2 = authentication2.getBody().getId();
+      User user2 = userService.findUserByNemId(nemId2);
+      user2.setName("Nikolai TheGreatest");
+      user2.setPhoneNumber(20304050L);
+      user2.setCpr(2626040400L);
+      user2.setAddress("BigManGade");
+      user2.setEmail("GalEnMail@gmail.com");
+      user2.setBirthDate(LocalDate.of(1996, 12, 12));
+      user2.setZip("3000");
+      userService.updateUser(user2.getId(), user2);
+
+        friendshipService.addFriendship(new Friendship(user2.getEmail(), user1.getEmail(), LocalDate.of(2021, 11, 20)));
+
+    }
+
   }
 }
