@@ -22,7 +22,7 @@ public interface PartyControllerInterface {
     notes = "Execute to retrieve all <b>Parties</b>."
   )
   @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   @GetMapping
   public List<Party> findAllParties();
@@ -34,7 +34,7 @@ public interface PartyControllerInterface {
   )
   @GetMapping("/{id}")
   @PreAuthorize(
-          "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('VOTER') or hasRole('CANDIDATE')"
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public Party findPartyById(@PathVariable Long id);
 }

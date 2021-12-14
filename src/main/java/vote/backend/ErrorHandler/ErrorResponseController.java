@@ -1,4 +1,4 @@
-package vote.backend.ErrorHandler;
+package vote.backend.errorHandler;
 
 import java.time.LocalDateTime;
 import javax.el.MethodNotFoundException;
