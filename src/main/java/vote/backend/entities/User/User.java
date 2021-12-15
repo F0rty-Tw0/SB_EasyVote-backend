@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,8 +33,8 @@ public class User {
   private Long id;
 
   private String name;
-
-  @JsonFormat(pattern = "dd-MM-YYYY")
+  
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthDate;
 
   private Long phoneNumber;

@@ -146,7 +146,7 @@ public class DatabaseConfig implements CommandLineRunner {
     User user = getLoggedUser();
     user.setName("Artiom Tofan");
     user.setPhoneNumber(60902086L);
-    user.setCpr(2727272727L);
+    user.setCpr(272727L);
     user.setAddress("Saxogade 25, 1 TH");
     user.setEmail("artm@gmail.com");
     user.setBirthDate(LocalDate.of(1996, 12, 12));
@@ -225,11 +225,11 @@ public class DatabaseConfig implements CommandLineRunner {
 
       Long nemId2 = authentication2.getBody().getId();
       User user2 = userService.findUserByNemId(nemId2);
-      user2.setName("Nikolai TheGreatest");
+      user2.setName("Nikolai Greatest");
       user2.setPhoneNumber(20304050L);
-      user2.setCpr(2626040400L);
+      user2.setCpr(262604L);
       user2.setAddress("BigManGade");
-      user2.setEmail("GalEnMail@gmail.com");
+      user2.setEmail("Ganail@gmail.com");
       user2.setBirthDate(LocalDate.of(1996, 12, 12));
       user2.setZip("3000");
       userService.updateUser(user2.getId(), user2);

@@ -31,4 +31,11 @@ public class UserController implements UserControllerInterface {
   public User findUserByNemId(Long id) {
     return userService.findUserByNemId(id);
   }
+
+  @Override
+  public void addUser(String token, User user) {
+    String nemId = jwtUtils.getNemIdFromJwtToken(token.substring(7));
+    User foundUser = userService.findUserByNemId(Long.parseLong(nemId));
+    userService.updateUser(foundUser.getId(), user);
+  }
 }

@@ -4,11 +4,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import vote.backend.entities.User.User;
 
 @Api(
@@ -49,4 +53,19 @@ public interface UserControllerInterface {
     "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
   )
   public User findUserByNemId(@PathVariable Long id);
+
+  @ApiOperation(
+    value = " - Adds the User to the database",
+    authorizations = { @Authorization(value = "jwtToken") },
+    notes = "Enter the <b>User Object</b> in the body in order to create a new <b>User</b>.<br><em>Requires a role of a minimum <b>VOTER</b></em>"
+  )
+  @PostMapping
+  @PreAuthorize(
+    "hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('CANDIDATE') or hasRole('VOTER')"
+  )
+  @ResponseStatus(HttpStatus.CREATED)
+  public void addUser(
+    @RequestHeader(name = "Authorization", required = false) String token,
+    @RequestBody User user
+  );
 }
